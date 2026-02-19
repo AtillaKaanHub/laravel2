@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Panel</title>
-</head>
-<body>
+@extends('admin.layout')
 
-<h1>Admin Paneline Hoşgeldin {{ Auth::user()->name }}</h1>
+@section('content')
 
-<form method="POST" action="{{ route('admin.logout') }}">
-    @csrf
-    <button type="submit">Çıkış Yap</button>
-</form>
+<h1>Dashboard</h1>
+<p>Admin panel ana sayfası.</p>
 
-</body>
-</html>
+@endsection
