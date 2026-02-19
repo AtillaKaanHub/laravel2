@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Teklif;
+
+
 
 class AdminController extends Controller
 {
+
+    public function teklifler()
+{
+    $teklifler = Teklif::latest()->get();
+
+    return view('admin.teklifler', compact('teklifler'));
+}
+
     public function showLogin()
     {
         return view('admin.login');
