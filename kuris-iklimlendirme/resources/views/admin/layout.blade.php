@@ -47,7 +47,7 @@
 
 <div class="sidebar">
     <h2>Admin</h2>
-    <a href="{{ route('admin.dashboard') }}">Dashboard</a>
+    <a href="{{ route('admin.dashboard') }}">Teklifler</a>
 </div>
 
 <div class="content">
