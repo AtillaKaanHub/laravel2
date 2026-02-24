@@ -47,7 +47,10 @@
 
 <div class="sidebar">
     <h2>Admin</h2>
-    <a href="{{ route('admin.dashboard') }}">Teklifler</a>
+  <button onclick="var l=document.getElementById('liste'); l.style.display = (l.style.display==='none'?'block':'none');">
+    Teklifleri Listele
+</button>
+
 </div>
 
 <div class="content">

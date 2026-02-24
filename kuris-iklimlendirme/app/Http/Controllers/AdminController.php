@@ -42,7 +42,8 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard');
+      $teklifler = \App\Models\Teklif::latest()->get();
+    return view('admin.dashboard', compact('teklifler'));
     }
 
     public function logout()

@@ -21,8 +21,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-        Route::get('/teklifler', [AdminController::class, 'teklifler'])
-            ->name('admin.teklifler');
+       Route::get('/teklifler', [AdminController::class, 'teklifler'])->name('admin.teklifler');
 
     });
 
@@ -35,4 +34,3 @@ Route::view('/', 'home');
 Route::view('/hizmetler', 'hizmetler');
 Route::view('/kurumsal', 'kurumsal');
 Route::view('/iletisim', 'iletisim');
-Route::view('/teklif-al', 'teklif-al');
