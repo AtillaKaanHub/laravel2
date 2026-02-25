@@ -3,6 +3,7 @@ use App\Http\Controllers\OfferController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeklifController;
+use App\Http\Controllers\YorumController;
 
 
 
@@ -25,6 +26,8 @@ Route::prefix('admin')->group(function () {
        Route::delete('/teklif/{id}', [AdminController::class, 'destroy'])
     ->name('admin.teklif.destroy');
 
+    
+
     });
 
 
@@ -36,3 +39,4 @@ Route::view('/', 'home');
 Route::view('/hizmetler', 'hizmetler');
 Route::view('/kurumsal', 'kurumsal');
 Route::view('/iletisim', 'iletisim');
+Route::post('/yorum-ekle', [YorumController::class, 'store'])->name('yorum.ekle');

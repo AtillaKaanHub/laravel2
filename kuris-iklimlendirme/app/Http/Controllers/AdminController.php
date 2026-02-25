@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Teklif;
+use App\Models\Yorum;
 
 
 
@@ -52,8 +53,10 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-      $teklifler = \App\Models\Teklif::latest()->get();
-    return view('admin.dashboard', compact('teklifler'));
+       $teklifler = \App\Models\Teklif::latest()->get();
+    $yorumlar = \App\Models\Yorum::latest()->get();
+
+    return view('admin.dashboard', compact('teklifler','yorumlar'));
     }
 
     public function logout()
@@ -61,6 +64,12 @@ class AdminController extends Controller
         Auth::logout();
         return redirect()->route('admin.login');
     }
+    
+    public function yorumlar()
+{
+    $yorumlar = Yorum::latest()->get();
+    return view('admin.yorumlar', compact('yorumlar'));
+}
 
 
 

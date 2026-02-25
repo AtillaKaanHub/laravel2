@@ -305,32 +305,36 @@
                 <h3 class="text-xl font-bold text-gray-900 mb-2">Yorum Yap</h3>
                 <p class="text-sm text-gray-500 mb-6">Deneyiminizi paylaşarak bize destek olun.</p>
 
-                <form id="yanYanaForm" onsubmit="yorumEkleYanYana(event)" class="space-y-4">
-                    
-                    <div>
-                        <input type="text" id="yanAd" required class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all" placeholder="Adınız Soyadınız">
-                    </div>
+               <form id="yorumForm">
+    @csrf
 
-                    <div class="relative">
-                        <select id="yanPuan" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none cursor-pointer text-gray-600">
-                            <option value="5">⭐⭐⭐⭐⭐ - Mükemmel</option>
-                            <option value="4">⭐⭐⭐⭐ - İyi</option>
-                            <option value="3">⭐⭐⭐ - Orta</option>
-                            <option value="2">⭐⭐ - Geliştirilmeli</option>
-                            <option value="1">⭐ - Kötü</option>
-                        </select>
-                        <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
-                    </div>
+    <div>
+        <input type="text" name="ad" required
+               class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm"
+               placeholder="Adınız Soyadınız">
+    </div>
 
-                    <div>
-                        <textarea id="yanMesaj" required rows="4" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none" placeholder="Yorumunuzu buraya yazın..."></textarea>
-                    </div>
+    <div class="relative">
+        <select name="rating"
+                class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm">
+            <option value="5">⭐⭐⭐⭐⭐ - Mükemmel</option>
+            <option value="4">⭐⭐⭐⭐ - İyi</option>
+            <option value="3">⭐⭐⭐ - Orta</option>
+            <option value="2">⭐⭐ - Geliştirilmeli</option>
+            <option value="1">⭐ - Kötü</option>
+        </select>
+    </div>
 
-                    <button type="submit" class="w-full bg-gray-900 hover:bg-black text-white font-medium py-3 rounded-lg transition-colors duration-300 text-sm flex items-center justify-center gap-2">
-                        <span>Gönder</span>
-                        <i class="fa-solid fa-paper-plane text-xs"></i>
-                    </button>
-                </form>
+    <div>
+        <textarea name="mesaj" required rows="4"
+                  class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm"
+                  placeholder="Yorumunuzu buraya yazın..."></textarea>
+    </div>
+
+    <button type="submit" class="w-full bg-gray-900 text-white py-3 rounded-lg">
+        Gönder
+    </button>
+</form>
             </div>
 
 
@@ -414,6 +418,26 @@
     <span class="absolute top-0 right-0 w-16 h-16 bg-green-500 rounded-full opacity-75 animate-ping -z-10"></span>
 </a>
 
+<script>
+document.getElementById('yorumForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("{{ route('yorum.ekle') }}", {
+        method: "POST",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        document.getElementById('yorumForm').reset();
+    });
+});
+</script>
 
 @endsection
 

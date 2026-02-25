@@ -152,22 +152,25 @@ body{
         </div>
 
         <!-- YORUMLAR -->
-        <div id="yorumlar" class="hidden">
+       <div id="yorumlar" class="hidden">
+    <h1 class="text-2xl font-bold mb-6">Yorum Yönetimi</h1>
 
-            <h1 class="text-2xl font-bold mb-6">Yorum Yönetimi</h1>
+    @foreach($yorumlar as $yorum)
+    <div class="bg-white p-6 rounded-2xl shadow mb-4">
+        <strong>{{ $yorum->ad }}</strong>
+        <p class="text-gray-600 mt-2">{{ $yorum->mesaj }}</p>
 
-            <div class="bg-white p-6 rounded-2xl shadow mb-4">
-                <strong>Mehmet Kaya</strong>
-                <p class="text-gray-600 mt-2">Hizmetten çok memnun kaldım.</p>
-
-                <div class="mt-4">
-                    <button onclick="approveComment(this)" class="bg-green-500 text-white px-4 py-2 rounded-lg mr-2">Onayla</button>
-                   <button onclick="deleteComment(this)" class="bg-red-500 text-white px-4 py-2 rounded-lg">Sil</button>
-                </div>
-            </div>
-
+        <div class="mt-4">
+            <button class="bg-green-500 text-white px-4 py-2 rounded-lg mr-2">
+                Onayla
+            </button>
+            <button class="bg-red-500 text-white px-4 py-2 rounded-lg">
+                Sil
+            </button>
         </div>
-
+    </div>
+    @endforeach
+</div>
         <!-- SITE YONETIM -->
         <div id="site" class="hidden">
 
