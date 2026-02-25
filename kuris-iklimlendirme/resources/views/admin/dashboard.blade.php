@@ -102,18 +102,20 @@ body{
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="p-4">Ahmet Yılmaz</td>
-                            <td>0555 000 00 00</td>
-                            <td>Split Klima</td>
-                            <td>24.02.2026</td>
-                            <td>
-                               <button onclick="toggleDetail(this)" class="text-blue-600">Detay</button>
-                               <button onclick="deleteRow(this)" class="text-red-600 ml-3">Sil</button>
-                            </td>
-                        </tr>
-                    </tbody>
+                   <tbody>
+    @foreach($teklifler as $teklif)
+    <tr class="border-b hover:bg-gray-50">
+        <td class="p-4">{{ $teklif->name }}</td>
+        <td>{{ $teklif->phone }}</td>
+        <td>{{ $teklif->service }}</td>
+        <td>{{ $teklif->created_at->format('d.m.Y') }}</td>
+        <td>
+            <button class="text-blue-600">Detay</button>
+            <button class="text-red-600 ml-3">Sil</button>
+        </td>
+    </tr>
+    @endforeach
+</tbody>
 
                 </table>
 

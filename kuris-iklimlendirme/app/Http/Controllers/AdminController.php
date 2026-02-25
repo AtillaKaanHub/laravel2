@@ -13,8 +13,8 @@ class AdminController extends Controller
 
     public function teklifler()
 {
+    
     $teklifler = Teklif::latest()->get();
-
     return view('admin.teklifler', compact('teklifler'));
 }
 
