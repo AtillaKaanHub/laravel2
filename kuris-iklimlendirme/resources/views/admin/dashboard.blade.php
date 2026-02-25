@@ -138,6 +138,7 @@ body{
         <p><strong>Hizmet:</strong> {{ $teklif->service }}</p>
         <p><strong>Alan:</strong> {{ $teklif->square_meter }} m²</p>
         <p><strong>Fiyat:</strong> {{ $teklif->calculated_price }} ₺</p>
+        <p><strong>Not:</strong> {{ $teklif->note ?? '—' }}</p>
 
         <button onclick="toggleDetail({{ $teklif->id }})" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">
             Kapat
