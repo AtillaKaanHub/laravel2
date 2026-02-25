@@ -170,6 +170,29 @@ body{
         </div>
     </div>
     @endforeach
+
+    <h2 class="text-xl font-bold mt-10 mb-4">Gelen Mesajlar</h2>
+
+<table class="w-full border">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="p-2">Ad</th>
+            <th class="p-2">Telefon</th>
+            <th class="p-2">Mesaj</th>
+            <th class="p-2">Tarih</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($mesajlar as $mesaj)
+        <tr class="border-b">
+            <td class="p-2">{{ $mesaj->ad }}</td>
+            <td class="p-2">{{ $mesaj->telefon }}</td>
+            <td class="p-2">{{ $mesaj->mesaj }}</td>
+            <td class="p-2">{{ $mesaj->created_at }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 </div>
         <!-- SITE YONETIM -->
         <div id="site" class="hidden">

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Teklif;
 use App\Models\Yorum;
-
+use App\Models\Message;
 
 
 class AdminController extends Controller
@@ -53,10 +53,11 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-       $teklifler = \App\Models\Teklif::latest()->get();
-    $yorumlar = \App\Models\Yorum::latest()->get();
+        $teklifler = \App\Models\Teklif::latest()->get();
+    $yorumlar  = \App\Models\Yorum::latest()->get();
+    $mesajlar  = \App\Models\Message::latest()->get();
 
-    return view('admin.dashboard', compact('teklifler','yorumlar'));
+    return view('admin.dashboard', compact('teklifler','yorumlar','mesajlar'));
     }
 
     public function logout()
@@ -71,6 +72,10 @@ class AdminController extends Controller
     return view('admin.yorumlar', compact('yorumlar'));
 }
 
-
+public function mesajlar()
+{
+    $mesajlar = Message::latest()->get();
+    return view('admin.mesajlar', compact('mesajlar'));
+}
 
 }

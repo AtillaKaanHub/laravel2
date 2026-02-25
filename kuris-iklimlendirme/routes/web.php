@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeklifController;
 use App\Http\Controllers\YorumController;
+use App\Http\Controllers\MessageController;
 
 
 
@@ -25,6 +26,9 @@ Route::prefix('admin')->group(function () {
        Route::get('/teklifler', [AdminController::class, 'teklifler'])->name('admin.teklifler');
        Route::delete('/teklif/{id}', [AdminController::class, 'destroy'])
     ->name('admin.teklif.destroy');
+       
+       Route::get('/mesajlar', [AdminController::class, 'mesajlar'])
+    ->name('admin.mesajlar');
 
     
 
@@ -40,3 +44,4 @@ Route::view('/hizmetler', 'hizmetler');
 Route::view('/kurumsal', 'kurumsal');
 Route::view('/iletisim', 'iletisim');
 Route::post('/yorum-ekle', [YorumController::class, 'store'])->name('yorum.ekle');
+Route::post('/mesaj-gonder', [MessageController::class, 'store'])->name('mesaj.store');

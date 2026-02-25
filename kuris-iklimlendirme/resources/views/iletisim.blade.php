@@ -154,25 +154,30 @@
 
                 <div class="bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-200">
                     <h3 class="text-2xl font-bold text-gray-800 mb-6">Hızlı Mesaj Gönder</h3>
-                    <form>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Ad Soyad</label>
-                                <input type="text" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:border-blue-500 focus:outline-none transition" placeholder="Adınız">
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Telefon</label>
-                                <input type="tel" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:border-blue-500 focus:outline-none transition" placeholder="05XX...">
-                            </div>
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Mesajınız</label>
-                            <textarea rows="4" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 focus:border-blue-500 focus:outline-none transition" placeholder="Sorunuzu buraya yazabilirsiniz..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold py-3 px-6 rounded-lg hover:shadow-lg transform hover:-translate-y-1 transition duration-300">
-                            GÖNDER
-                        </button>
-                    </form>
+                  <form action="{{ route('mesaj.store') }}" method="POST">
+@csrf
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div>
+        <label class="block text-gray-700 text-sm font-bold mb-2">Ad Soyad</label>
+        <input type="text" name="ad" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300" required>
+    </div>
+    <div>
+        <label class="block text-gray-700 text-sm font-bold mb-2">Telefon</label>
+        <input type="tel" name="telefon" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300">
+    </div>
+</div>
+
+<div class="mb-6">
+    <label class="block text-gray-700 text-sm font-bold mb-2">Mesajınız</label>
+    <textarea name="mesaj" rows="4" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300" required></textarea>
+</div>
+
+<button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold py-3 px-6 rounded-lg">
+    GÖNDER
+</button>
+
+</form>
                 </div>
 
             </div>
