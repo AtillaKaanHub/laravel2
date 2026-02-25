@@ -110,14 +110,41 @@ body{
         <td>{{ $teklif->service }}</td>
         <td>{{ $teklif->created_at->format('d.m.Y') }}</td>
         <td>
-            <button class="text-blue-600">Detay</button>
-            <button class="text-red-600 ml-3">Sil</button>
+           <button onclick="toggleDetail({{ $teklif->id }})" class="text-blue-600">
+    Detay
+</button>
+            <form action="{{ route('admin.teklif.destroy', $teklif->id) }}" method="POST" class="inline" onsubmit="return confirm('Silmek istediğine emin misiniz?')">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="text-red-600 ml-3">
+        Sil
+    </button>
+</form>
         </td>
     </tr>
     @endforeach
 </tbody>
 
                 </table>
+                @foreach($teklifler as $teklif)
+<div id="detail-{{ $teklif->id }}" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded w-96">
+        <h2 class="text-xl font-bold mb-4">Teklif Detayı</h2>
+
+        <p><strong>İsim:</strong> {{ $teklif->name }}</p>
+        <p><strong>Telefon:</strong> {{ $teklif->phone }}</p>
+        <p><strong>Email:</strong> {{ $teklif->email }}</p>
+        <p><strong>Şehir:</strong> {{ $teklif->city }}</p>
+        <p><strong>Hizmet:</strong> {{ $teklif->service }}</p>
+        <p><strong>Alan:</strong> {{ $teklif->square_meter }} m²</p>
+        <p><strong>Fiyat:</strong> {{ $teklif->calculated_price }} ₺</p>
+
+        <button onclick="toggleDetail({{ $teklif->id }})" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">
+            Kapat
+        </button>
+    </div>
+</div>
+@endforeach
 
             </div>
 
@@ -239,6 +266,10 @@ function logout(){
 }
 
 </script>
-
+<script>
+function toggleDetail(id) {
+    document.getElementById('detail-' + id).classList.toggle('hidden');
+}
+</script>
 </body>
 </html>

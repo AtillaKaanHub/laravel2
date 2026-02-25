@@ -18,6 +18,16 @@ class AdminController extends Controller
     return view('admin.teklifler', compact('teklifler'));
 }
 
+  public function destroy($id)
+{
+    $teklif = \App\Models\Teklif::findOrFail($id);
+    $teklif->delete();
+
+    return redirect()->back()->with('success', 'Teklif silindi');
+}
+
+
+
     public function showLogin()
     {
         return view('admin.login');
@@ -51,4 +61,7 @@ class AdminController extends Controller
         Auth::logout();
         return redirect()->route('admin.login');
     }
+
+
+
 }

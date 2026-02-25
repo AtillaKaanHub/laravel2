@@ -22,6 +22,8 @@ Route::prefix('admin')->group(function () {
         Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
        Route::get('/teklifler', [AdminController::class, 'teklifler'])->name('admin.teklifler');
+       Route::delete('/teklif/{id}', [AdminController::class, 'destroy'])
+    ->name('admin.teklif.destroy');
 
     });
 
