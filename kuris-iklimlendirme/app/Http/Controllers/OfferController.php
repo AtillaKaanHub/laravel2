@@ -39,4 +39,9 @@ class OfferController extends Controller
 
         return response()->json(['price' => $total]);
     }
+
+    public function teklifForm()
+{
+    return view('teklif-al');
+}
 }
