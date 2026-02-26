@@ -51,7 +51,10 @@ body{
         </nav>
 
         <div class="p-4 border-t border-gray-800">
-            <button onclick="logout()" class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg">
+          <button onclick="logout()" 
+    class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg">
+    <i class="fa-solid fa-right-from-bracket mr-2"></i> Çıkış Yap
+</button>
         </div>
     </aside>
 
@@ -300,7 +303,7 @@ function deleteComment(btn){
 // ÇIKIŞ
 function logout(){
     if(confirm("Çıkış yapmak istiyor musunuz?")){
-        window.location.href = "login.html";
+        window.location.href = "/login";
     }
 }
 
