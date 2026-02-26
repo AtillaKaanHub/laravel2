@@ -29,7 +29,12 @@ Route::prefix('admin')->group(function () {
        
        Route::get('/mesajlar', [AdminController::class, 'mesajlar'])
     ->name('admin.mesajlar');
+      
+   Route::post('/yorum/{id}/onayla', [AdminController::class, 'yorumOnayla'])
+    ->name('yorum.onayla');
 
+Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
+    ->name('yorum.sil');
     
 
     });

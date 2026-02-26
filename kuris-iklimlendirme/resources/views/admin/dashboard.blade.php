@@ -155,21 +155,33 @@ body{
        <div id="yorumlar" class="hidden">
     <h1 class="text-2xl font-bold mb-6">Yorum Yönetimi</h1>
 
-    @foreach($yorumlar as $yorum)
-    <div class="bg-white p-6 rounded-2xl shadow mb-4">
-        <strong>{{ $yorum->ad }}</strong>
-        <p class="text-gray-600 mt-2">{{ $yorum->mesaj }}</p>
+   @foreach($yorumlar as $yorum)
+<div class="bg-white p-6 rounded-2xl shadow mb-4">
+    <strong>{{ $yorum->ad }}</strong>
+    <p class="text-gray-600 mt-2">{{ $yorum->mesaj }}</p>
 
-        <div class="mt-4">
-            <button class="bg-green-500 text-white px-4 py-2 rounded-lg mr-2">
+    <div class="mt-4 flex">
+
+        @if(!$yorum->onay)
+        <form action="{{ route('yorum.onayla', $yorum->id) }}" method="POST" class="mr-2">
+            @csrf
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg">
                 Onayla
             </button>
-            <button class="bg-red-500 text-white px-4 py-2 rounded-lg">
+        </form>
+        @endif
+
+        <form action="{{ route('yorum.sil', $yorum->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg">
                 Sil
             </button>
-        </div>
+        </form>
+
     </div>
-    @endforeach
+</div>
+@endforeach
 
     <h2 class="text-xl font-bold mt-10 mb-4">Gelen Mesajlar</h2>
 

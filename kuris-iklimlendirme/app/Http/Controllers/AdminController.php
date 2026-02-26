@@ -78,4 +78,21 @@ public function mesajlar()
     return view('admin.mesajlar', compact('mesajlar'));
 }
 
+public function yorumOnayla($id)
+{
+    $yorum = Yorum::findOrFail($id);
+    $yorum->onay = 1;
+    $yorum->save();
+
+    return back()->with('success', 'Yorum onaylandı.');
+}
+
+public function yorumSil($id)
+{
+    $yorum = Yorum::findOrFail($id);
+    $yorum->delete();
+
+    return back()->with('success', 'Yorum silindi.');
+}
+
 }
