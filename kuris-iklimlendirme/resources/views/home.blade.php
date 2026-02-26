@@ -350,54 +350,46 @@
                 </div>
 
                 <div id="yanYanaListe" class="space-y-6">
-                    
-                    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
-        <div class="flex gap-4 items-start">
-                            <div class="w-10 h-10 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center text-blue-600 font-bold text-sm">
-                                A
-            </div>
-            <div class="flex-1">
-                                <div class="flex justify-between items-start">
-                                    <h4 class="font-bold text-gray-900 text-sm">Ahmet Yılmaz</h4>
-                                    <span class="text-xs text-gray-400">2 gün önce</span>
-                </div>
-                                <div class="text-yellow-400 text-[10px] mb-2 mt-0.5">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    "Klimamızın yıllık bakımını yaptırdık. Gelen ekip çok ilgiliydi. Tavsiye ederim."
-                </p>
-            </div>
+
+@foreach($yorumlar as $yorum)
+
+<div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+    <div class="flex gap-4 items-start">
+        
+        <div class="w-10 h-10 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center text-blue-600 font-bold text-sm">
+            {{ strtoupper(substr($yorum->ad, 0, 1)) }}
         </div>
+
+        <div class="flex-1">
+            <div class="flex justify-between items-start">
+                <h4 class="font-bold text-gray-900 text-sm">
+                    {{ $yorum->ad }}
+                </h4>
+
+                <span class="text-xs text-gray-400">
+                    {{ $yorum->created_at->diffForHumans() }}
+                </span>
+            </div>
+
+            <div class="text-yellow-400 text-[10px] mb-2 mt-0.5">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+
+            <p class="text-gray-600 text-sm leading-relaxed">
+                "{{ $yorum->mesaj }}"
+            </p>
+        </div>
+
     </div>
+</div>
 
-                    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                        <div class="flex gap-4 items-start">
-                            <div class="w-10 h-10 rounded-full bg-green-100 flex-shrink-0 flex items-center justify-center text-green-600 font-bold text-sm">
-                                M
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-start">
-                                    <h4 class="font-bold text-gray-900 text-sm">Merve Demir</h4>
-                                    <span class="text-xs text-gray-400">1 hafta önce</span>
-                                </div>
-                                <div class="text-yellow-400 text-[10px] mb-2 mt-0.5">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-                                </div>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    "Randevu saatinde küçük bir gecikme oldu ama işçilikleri gayet temiz."
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+@endforeach
 
-                </div>
-                
-                <div class="mt-8 text-center">
-                    <button class="text-blue-600 text-sm font-semibold hover:text-blue-800 transition">
-                        Tüm yorumları gör <i class="fa-solid fa-arrow-right ml-1"></i>
-                    </button>
-                </div>
+</div>
 
 </div>
 

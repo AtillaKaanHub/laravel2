@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeklifController;
 use App\Http\Controllers\YorumController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\HomeController;
 
 
 
@@ -44,7 +45,7 @@ Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
 
 
 
-Route::view('/', 'home');
+Route::get('/', [HomeController::class, 'index']);
 Route::view('/hizmetler', 'hizmetler');
 Route::view('/kurumsal', 'kurumsal');
 Route::view('/iletisim', 'iletisim');
