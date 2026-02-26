@@ -45,9 +45,10 @@ Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
 
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [OfferController::class, 'index']);
 Route::view('/hizmetler', 'hizmetler');
 Route::view('/kurumsal', 'kurumsal');
 Route::view('/iletisim', 'iletisim');
 Route::post('/yorum-ekle', [YorumController::class, 'store'])->name('yorum.ekle');
 Route::post('/mesaj-gonder', [MessageController::class, 'store'])->name('mesaj.store');
+Route::post('/yorum-gonder', [YorumController::class, 'store'])->name('yorum.store');

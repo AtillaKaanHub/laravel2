@@ -12,14 +12,17 @@ class OfferController extends Controller
     public function index()
     {
         $services = Service::all();
-    $places   = PlaceType::all();
+        $places = PlaceType::all();
 
-    $yorumlar = Yorum::where('onay', 1)
-                     ->latest()
-                     ->take(3)
-                     ->get();
+        $yorumlar = Yorum::where('onay', 1)
+                         ->latest()
+                         ->take(6)
+                         ->get();
 
-    return view('teklif-al', compact('services', 'places', 'yorumlar'));
+        $yorumSayisi = Yorum::where('onay', 1)->count();
+        $ortalama = Yorum::where('onay', 1)->avg('puan') ?? 0;
+
+        return view('home', compact('services', 'places', 'yorumlar', 'yorumSayisi', 'ortalama'));
     }
 
     public function calculate(Request $request)

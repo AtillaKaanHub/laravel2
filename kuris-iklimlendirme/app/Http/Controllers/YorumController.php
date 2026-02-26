@@ -7,16 +7,18 @@ use App\Models\Yorum;
 
 class YorumController extends Controller
 {
-    public function store(Request $request)
+   public function store(Request $request)
     {
         $request->validate([
             'ad' => 'required',
-            'mesaj' => 'required'
+            'mesaj' => 'required',
+            'puan' => 'required|integer|min:1|max:5'
         ]);
 
         Yorum::create([
             'ad' => $request->ad,
             'mesaj' => $request->mesaj,
+            'puan' => $request->puan,
             'onay' => false
         ]);
 

@@ -12,6 +12,7 @@ class Yorum extends Model
     protected $fillable = [
         'ad',
         'mesaj',
-        'onay'
+        'onay',
+        'puan',
     ];
 }

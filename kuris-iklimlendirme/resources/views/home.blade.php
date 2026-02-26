@@ -315,7 +315,7 @@
     </div>
 
     <div class="relative">
-        <select name="rating"
+        <select name="puan"
                 class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm">
             <option value="5">⭐⭐⭐⭐⭐ - Mükemmel</option>
             <option value="4">⭐⭐⭐⭐ - İyi</option>
@@ -342,11 +342,11 @@
                 
                 <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
                     <h3 class="text-xl font-bold text-gray-900">Son Değerlendirmeler</h3>
-                    <div class="flex items-center gap-2 text-sm text-gray-500">
-                        <i class="fa-solid fa-star text-yellow-400"></i>
-                        <span class="font-bold text-gray-900">4.9</span>
-                        <span>(128 Yorum)</span>
-                    </div>
+                   <div class="flex items-center gap-2 text-sm text-gray-500">
+    <i class="fa-solid fa-star text-yellow-400"></i>
+    <span class="font-bold text-gray-900">{{ number_format($ortalama, 1) }}</span>
+    <span>({{ $yorumSayisi }} Yorum)</span>
+</div>
                 </div>
 
                 <div id="yanYanaListe" class="space-y-6">
@@ -416,7 +416,7 @@ document.getElementById('yorumForm').addEventListener('submit', function(e){
 
     let formData = new FormData(this);
 
-    fetch("{{ route('yorum.ekle') }}", {
+    fetch("{{ route('yorum.store') }}", {
         method: "POST",
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
