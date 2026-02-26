@@ -349,7 +349,10 @@
 </div>
                 </div>
 
-                <div id="yanYanaListe" class="space-y-6">
+                <div id="yanYanaListe" class="space-y-6 max-h-64 overflow-y-auto pr-2">
+                    <div class="mt-8 text-center">
+    
+</div>
 
 @foreach($yorumlar as $yorum)
 
