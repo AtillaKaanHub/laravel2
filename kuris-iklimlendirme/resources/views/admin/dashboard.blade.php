@@ -44,9 +44,24 @@ body{
                 <i class="fa-solid fa-star mr-2"></i> Yorumlar
             </button>
 
-           <button onclick="showSection('site', this)"class="sidebar-link w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition">
-                <i class="fa-solid fa-gear mr-2"></i> Site Yönetimi
-            </button>
+           <button onclick="toggleSubMenu('siteMenu')" 
+        class="sidebar-link w-full text-left px-4 py-3 rounded-lg hover:bg-gray-800 transition">
+    <i class="fa-solid fa-gear mr-2"></i> Site Yönetimi
+</button>
+
+<!-- Alt Menü -->
+<div id="siteMenu" class="ml-6 mt-2 space-y-2">
+    
+    <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">Hizmetler</a>
+    <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">Kurumsal</a>
+    <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">İletişim</a>
+
+    <!-- Menü Yönetimi -->
+   <button onclick="showSection('menu', this)" 
+        class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white">
+    Ana Sayfa
+</button>
+</div>
 
         </nav>
 
@@ -229,6 +244,40 @@ body{
             </div>
 
         </div>
+<!-- ANA SAYFA YÖNETİMİ -->
+<div id="menu" class="hidden">
+
+    <h1 class="text-2xl font-bold mb-6">Header Menü Yönetimi</h1>
+
+    <form action="{{ route('admin.settings.update') }}" method="POST" class="bg-white p-6 rounded-2xl shadow">
+        @csrf
+
+        <label class="block mb-2 font-semibold">Ana Sayfa</label>
+        <input type="text" name="menu_home"
+               value="{{ $setting->menu_home ?? 'Ana Sayfa' }}"
+               class="w-full border p-3 rounded-lg mb-4">
+
+        <label class="block mb-2 font-semibold">Hizmetler</label>
+        <input type="text" name="menu_services"
+               value="{{ $setting->menu_services ?? 'Hizmetler' }}"
+               class="w-full border p-3 rounded-lg mb-4">
+
+        <label class="block mb-2 font-semibold">Kurumsal</label>
+        <input type="text" name="menu_corporate"
+               value="{{ $setting->menu_corporate ?? 'Kurumsal' }}"
+               class="w-full border p-3 rounded-lg mb-4">
+
+        <label class="block mb-2 font-semibold">İletişim</label>
+        <input type="text" name="menu_contact"
+               value="{{ $setting->menu_contact ?? 'İletişim' }}"
+               class="w-full border p-3 rounded-lg mb-4">
+
+        <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg">
+            Kaydet
+        </button>
+    </form>
+
+</div>
 
     </main>
 </div>
@@ -236,17 +285,26 @@ body{
 <script>
 
 function showSection(id, element){
-
-    let sections = ['dashboard','teklifler','yorumlar','site'];
+    // 'menu' id'sini bu listeye ekledik
+    let sections = ['dashboard', 'teklifler', 'yorumlar', 'site', 'menu'];
     let links = document.querySelectorAll('.sidebar-link');
 
     sections.forEach(sec=>{
-        document.getElementById(sec).classList.add('hidden');
+        // Eğer element varsa gizle (hata almamak için ufak bir güvenlik kontrolü)
+        let sectionElement = document.getElementById(sec);
+        if(sectionElement) {
+            sectionElement.classList.add('hidden');
+        }
     });
 
-    document.getElementById(id).classList.remove('hidden');
+    // Sadece tıklanan id'yi göster
+    let targetElement = document.getElementById(id);
+    if(targetElement) {
+        targetElement.classList.remove('hidden');
+    }
 
-    links.forEach(link=>link.classList.remove('active'));
+    // Aktif class'ını ayarla
+    links.forEach(link => link.classList.remove('active'));
     element.classList.add('active');
 }
 
@@ -313,5 +371,13 @@ function toggleDetail(id) {
     document.getElementById('detail-' + id).classList.toggle('hidden');
 }
 </script>
+
+<script>
+function toggleSubMenu(menuId) {
+    const menu = document.getElementById(menuId);
+    menu.classList.toggle("hidden");
+}
+</script>
+
 </body>
 </html>

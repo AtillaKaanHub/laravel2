@@ -6,6 +6,7 @@ use App\Http\Controllers\TeklifController;
 use App\Http\Controllers\YorumController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\SettingController;
 
 
 
@@ -19,6 +20,9 @@ Route::prefix('admin')->group(function () {
  Route::get('/login', [AdminController::class, 'showLogin'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'login']);
 
+    Route::get('/settings', [SettingController::class, 'edit'])->name('admin.settings');
+    Route::post('/settings', [SettingController::class, 'update'])->name('admin.settings.update');
+    
     Route::middleware('admin')->group(function () {
 
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -37,6 +41,9 @@ Route::prefix('admin')->group(function () {
 Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
     ->name('yorum.sil');
     
+     // Menü ayarları
+    Route::get('/menu-ayar', [SettingController::class, 'edit'])->name('admin.menu.edit');
+    Route::post('/menu-ayar', [SettingController::class, 'update'])->name('admin.menu.update');
 
     });
 
