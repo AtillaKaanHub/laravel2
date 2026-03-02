@@ -1,4 +1,6 @@
-<footer id="footer" class="relative bg-gradient-to-b from-[#0b1220] to-black text-gray-300 pt-20 pb-10 overflow-hidden">
+@php
+    $settings = \App\Models\Setting::first();
+@endphp<footer id="footer" class="relative bg-gradient-to-b from-[#0b1220] to-black text-gray-300 pt-20 pb-10 overflow-hidden">
 
   <!-- Arka plan efektleri -->
   <div class="absolute top-0 left-1/3 w-96 h-96 bg-blue-600/20 blur-[120px] rounded-full pointer-events-none"></div>
@@ -13,7 +15,11 @@
      <div class="lg:col-span-2">
     <div class="flex items-center gap-3">
         
-        <img src="{{ asset('sembol.png.png') }}" alt="Kuriş Logo" class="w-16 h-16 object-contain bg-white rounded-lg p-1">
+        <img src="{{ $settings && $settings->logo 
+                ? asset('storage/'.$settings->logo) 
+                : asset('sembol.png.png') }}"
+     alt="Kuriş Logo"
+     class="w-16 h-16 object-contain bg-white rounded-lg p-1">
         <span class="text-2xl font-bold text-white tracking-wide">KURİŞ</span>
     </div>
 
