@@ -18,6 +18,13 @@ return new class extends Migration
         $table->string('menu_contact')->nullable();
         $table->timestamps();
     });
+    {
+    Schema::create('settings', function (Blueprint $table) {
+        $table->id();
+        $table->string('logo')->nullable();
+        $table->timestamps();
+    });
+}
     }
 
     /**

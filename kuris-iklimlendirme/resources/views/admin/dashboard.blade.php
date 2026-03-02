@@ -225,22 +225,12 @@ body{
 </table>
 </div>
         <!-- SITE YONETIM -->
-        <div id="site" class="hidden">
+        <div id="site" >
 
             <h1 class="text-2xl font-bold mb-6">Site İçerik Yönetimi</h1>
 
-            <div class="bg-white p-6 rounded-2xl shadow">
-
-                <label class="block mb-2 font-semibold">Ana Sayfa Başlık</label>
-                <input type="text" class="w-full border p-3 rounded-lg mb-4">
-
-                <label class="block mb-2 font-semibold">Alt Açıklama</label>
-                <textarea class="w-full border p-3 rounded-lg mb-4" rows="4"></textarea>
-
-                <button class="bg-blue-600 text-white px-6 py-3 rounded-lg">
-                    Kaydet
-                </button>
-
+            <div class="bg-white p-6 rounded-2xl shadow"> 
+               
             </div>
 
         </div>
@@ -248,6 +238,28 @@ body{
 <div id="menu" class="hidden">
 
     <h1 class="text-2xl font-bold mb-6">Header Menü Yönetimi</h1>
+    <hr class="my-6">
+
+<h2 class="text-xl font-bold mb-4">Logo Yönetimi</h2>
+
+<form action="{{ url('/admin/logo-update') }}" 
+      method="POST" 
+      enctype="multipart/form-data"
+      class="mb-8">
+
+    @csrf
+
+    <label class="block mb-2 font-semibold">Logo Yükle</label>
+
+    <input type="file" 
+           name="logo" 
+           class="w-full border p-3 rounded-lg mb-4">
+
+    <button type="submit" 
+            class="bg-blue-600 text-white px-6 py-3 rounded-lg">
+        Logoyu Kaydet
+    </button>
+</form>
 
     <form action="{{ route('admin.settings.update') }}" method="POST" class="bg-white p-6 rounded-2xl shadow">
         @csrf

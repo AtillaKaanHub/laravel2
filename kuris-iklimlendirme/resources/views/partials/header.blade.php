@@ -2,9 +2,17 @@
     <div class="custom-container">
         <nav>
 
-            <a href="{{ url('/') }}" class="logo">
-                <img src="{{ asset('logo.jpg') }}" class="h-20 w-auto">
-            </a>
+           @php
+    $setting = \App\Models\Setting::first();
+@endphp
+
+<a href="{{ url('/') }}" class="logo">
+    @if($setting && $setting->logo)
+        <img src="{{ asset('storage/' . $setting->logo) }}" class="h-20 w-auto">
+    @else
+        <img src="{{ asset('logo.jpg') }}" class="h-20 w-auto">
+    @endif
+</a>
 
            <ul class="nav-links">
     <li>

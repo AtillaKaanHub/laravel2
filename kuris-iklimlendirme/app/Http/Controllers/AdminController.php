@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Teklif;
 use App\Models\Yorum;
 use App\Models\Message;
+use App\Models\Setting;
 
 
 class AdminController extends Controller
@@ -95,4 +96,23 @@ public function yorumSil($id)
     return back()->with('success', 'Yorum silindi.');
 }
 
+public function updateLogo(Request $request)
+{
+    $request->validate([
+        'logo' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+    ]);
+
+    $logoPath = $request->file('logo')->store('logos', 'public');
+
+    $setting = Setting::first();
+
+    if (!$setting) {
+        $setting = new Setting();
+    }
+
+    $setting->logo = $logoPath;
+    $setting->save();
+
+    return back()->with('success', 'Logo güncellendi.');
+}
 }

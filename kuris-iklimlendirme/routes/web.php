@@ -44,6 +44,8 @@ Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
      // Menü ayarları
     Route::get('/menu-ayar', [SettingController::class, 'edit'])->name('admin.menu.edit');
     Route::post('/menu-ayar', [SettingController::class, 'update'])->name('admin.menu.update');
+    //Logo ayarları
+    Route::post('/logo-update', [AdminController::class, 'updateLogo'])->name('admin.logo.update');
 
     });
 
