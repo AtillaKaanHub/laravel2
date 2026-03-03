@@ -184,66 +184,69 @@
     <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
     <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 bg-cyan-400/20 rounded-full blur-3xl"></div>
 
-    <div class="custom-container mx-auto px-4 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+@php
+    $settings = \DB::table('settings')->first();
+@endphp
+
+<div class="custom-container mx-auto px-4 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        
+        <div class="text-center md:text-left space-y-6">
+            <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold mb-2 border border-blue-200">
+                <i class="fa-solid fa-star text-yellow-500 mr-1"></i> {{ $settings->hero_badge ?? '%100 Müşteri Memnuniyeti' }}
+            </span>
             
-            <div class="text-center md:text-left space-y-6">
-                <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold mb-2 border border-blue-200">
-                    <i class="fa-solid fa-star text-yellow-500 mr-1"></i> %100 Müşteri Memnuniyeti
-                </span>
-                
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
-                    Mevsimleri <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Kontrol Altına Alın</span>
-                </h1>
-                
-                <p class="text-lg text-slate-600 md:pr-10">
-                    Eviniz ve iş yeriniz için en verimli ısıtma ve soğutma çözümleri. Konforunuzu profesyonel ellere bırakın.
-                </p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
+                {!! $settings->hero_title ?? 'Mevsimleri <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Kontrol Altına Alın</span>' !!}
+            </h1>
+            
+            <p class="text-lg text-slate-600 md:pr-10">
+                {{ $settings->hero_description ?? 'Eviniz ve iş yeriniz için en verimli ısıtma ve soğutma çözümleri. Konforunuzu profesyonel ellere bırakın.' }}
+            </p>
 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
-                    <a href="{{ url('/teklif-al') }}" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg hover:shadow-blue-500/30 transition transform hover:-translate-y-1">
-                        Hemen Teklif Al
-                    </a>
-                    <a href="tel:+905550000000" class="px-8 py-4 bg-white hover:bg-gray-50 text-slate-800 font-bold rounded-full shadow-md border border-gray-200 transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-phone text-blue-600"></i> Bizi Arayın
-                    </a>
-                </div>
-
-                <div class="flex items-center justify-center md:justify-start gap-6 pt-6 text-sm text-slate-500 font-medium">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-shield-halved text-blue-500 text-lg"></i> 2 Yıl Garanti
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-bolt text-yellow-500 text-lg"></i> Enerji Tasarrufu
-                    </div>
-                </div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                <a href="{{ $settings->hero_button_link ?? url('/teklif-al') }}" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg hover:shadow-blue-500/30 transition transform hover:-translate-y-1">
+                    {{ $settings->hero_button_text ?? 'Hemen Teklif Al' }}
+                </a>
+                <a href="tel:{{ $settings->hero_phone ?? '+905550000000' }}" class="px-8 py-4 bg-white hover:bg-gray-50 text-slate-800 font-bold rounded-full shadow-md border border-gray-200 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-phone text-blue-600"></i> Bizi Arayın
+                </a>
             </div>
 
-            <div class="relative group animate-float">
-                <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500"></div>
-                
-                <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                    <img src="{{ asset('hero-klima.jpg') }}" 
-                         alt="Kuriş İklimlendirme Klima Montajı" 
-                         class="w-full h-full object-cover">
-                         
-                    <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-white/50 hidden sm:block">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-                                <i class="fa-solid fa-leaf text-xl"></i>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 font-semibold uppercase">Doğa Dostu</p>
-                                <p class="text-sm font-bold text-gray-900">A++ Enerji Verimliliği</p>
-                            </div>
+            <div class="flex items-center justify-center md:justify-start gap-6 pt-6 text-sm text-slate-500 font-medium">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-blue-500 text-lg"></i> {{ $settings->hero_feature_title ?? '2 Yıl Garanti' }}
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-yellow-500 text-lg"></i> {{ $settings->hero_feature_subtitle ?? 'Enerji Tasarrufu' }}
+                </div>
+            </div>
+        </div>
+
+        <div class="relative group animate-float">
+            <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500"></div>
+            
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                <img src="{{ $settings->hero_image ? asset('storage/'.$settings->hero_image) : asset('hero-klima.jpg') }}" 
+                     alt="Kuriş İklimlendirme Klima Montajı" 
+                     class="w-full h-full object-cover">
+                     
+                <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-white/50 hidden sm:block">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                            <i class="fa-solid fa-leaf text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 font-semibold uppercase">Doğa Dostu</p>
+                            <p class="text-sm font-bold text-gray-900">A++ Enerji Verimliliği</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
         </div>
+        
     </div>
+</div>
     </section>
 
   

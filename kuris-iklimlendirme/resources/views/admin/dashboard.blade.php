@@ -225,15 +225,7 @@ body{
 </table>
 </div>
         <!-- SITE YONETIM -->
-        <div id="site" >
-
-            <h1 class="text-2xl font-bold mb-6">Site İçerik Yönetimi</h1>
-
-            <div class="bg-white p-6 rounded-2xl shadow"> 
-               
-            </div>
-
-        </div>
+       
 <!-- ANA SAYFA YÖNETİMİ -->
 <div id="menu" class="hidden">
 
@@ -288,6 +280,67 @@ body{
             Kaydet
         </button>
     </form>
+    <!-- 👇 HERO YÖNETİMİ BURAYA EKLE -->
+<hr class="my-6">
+
+<h2 class="text-xl font-bold mb-4">Hero Alanı Yönetimi</h2>
+
+<form action="{{ route('admin.hero.update') }}" 
+      method="POST" 
+      enctype="multipart/form-data"
+      class="bg-white p-6 rounded-2xl shadow space-y-4">
+
+    @csrf
+
+    <label class="block font-semibold">Üst Rozet Yazısı</label>
+    <input type="text" name="hero_badge"
+           value="{{ $setting->hero_badge ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Ana Başlık</label>
+    <input type="text" name="hero_title"
+           value="{{ $setting->hero_title ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Açıklama</label>
+    <textarea name="hero_description"
+              class="w-full border p-3 rounded-lg">{{ $setting->hero_description ?? '' }}</textarea>
+
+    <label class="block font-semibold">Buton Yazısı</label>
+    <input type="text" name="hero_button_text"
+           value="{{ $setting->hero_button_text ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Buton Linki</label>
+    <input type="text" name="hero_button_link"
+           value="{{ $setting->hero_button_link ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Telefon</label>
+    <input type="text" name="hero_phone"
+           value="{{ $setting->hero_phone ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Hero Görsel</label>
+    <input type="file" name="hero_image"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Doğa Dostu Başlık</label>
+    <input type="text" name="hero_feature_title"
+           value="{{ $setting->hero_feature_title ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Doğa Dostu Alt Yazı</label>
+    <input type="text" name="hero_feature_subtitle"
+           value="{{ $setting->hero_feature_subtitle ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <button type="submit"
+            class="bg-blue-600 text-white px-6 py-3 rounded-lg">
+        Hero Alanını Kaydet
+    </button>
+
+</form>
 
 </div>
 

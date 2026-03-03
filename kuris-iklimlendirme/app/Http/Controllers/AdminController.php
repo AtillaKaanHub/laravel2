@@ -8,6 +8,7 @@ use App\Models\Teklif;
 use App\Models\Yorum;
 use App\Models\Message;
 use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
 
 
 class AdminController extends Controller
@@ -53,14 +54,14 @@ class AdminController extends Controller
     }
 
     public function dashboard()
-    {
-        $teklifler = \App\Models\Teklif::latest()->get();
-    $yorumlar  = \App\Models\Yorum::latest()->get();
-    $mesajlar  = \App\Models\Message::latest()->get();
+{
+    $teklifler = Teklif::latest()->get();
+    $yorumlar  = Yorum::latest()->get();
+    $mesajlar  = Message::latest()->get();
+    $setting   = Setting::first(); 
 
-    return view('admin.dashboard', compact('teklifler','yorumlar','mesajlar'));
-    }
-
+    return view('admin.dashboard', compact('teklifler','yorumlar','mesajlar','setting'));
+}
     public function logout()
     {
         Auth::logout();
@@ -102,17 +103,55 @@ public function updateLogo(Request $request)
         'logo' => 'required|image|mimes:jpg,jpeg,png|max:2048'
     ]);
 
-    $logoPath = $request->file('logo')->store('logos', 'public');
+    if ($request->hasFile('logo')) {
+        $logoPath = $request->file('logo')->store('logos', 'public');
 
-    $setting = Setting::first();
-
-    if (!$setting) {
-        $setting = new Setting();
+        $setting = Setting::firstOrCreate([]);
+        $setting->logo = $logoPath;
+        $setting->save();
     }
-
-    $setting->logo = $logoPath;
-    $setting->save();
 
     return back()->with('success', 'Logo güncellendi.');
 }
+ public function heroUpdate(Request $request)
+    {
+        $settings = DB::table('settings')->first();
+
+        DB::table('settings')->update([
+            'hero_badge' => $request->hero_badge ?? $settings->hero_badge,
+            'hero_title' => $request->hero_title ?? $settings->hero_title,
+            'hero_description' => $request->hero_description ?? $settings->hero_description,
+            'hero_button_text' => $request->hero_button_text ?? $settings->hero_button_text,
+            'hero_button_link' => $request->hero_button_link ?? $settings->hero_button_link,
+            'hero_phone' => $request->hero_phone ?? $settings->hero_phone,
+            'hero_image' => $request->hasFile('hero_image') ? $request->file('hero_image')->store('hero','public') : $settings->hero_image,
+            'hero_feature_title' => $request->hero_feature_title ?? $settings->hero_feature_title,
+            'hero_feature_subtitle' => $request->hero_feature_subtitle ?? $settings->hero_feature_subtitle,
+        ]);
+
+        return back()->with('success', 'Hero alanı güncellendi!');
+    }
+}
+
+
+class HeroController extends Controller
+{
+    public function updateHero(Request $request)
+    {
+        $settings = DB::table('settings')->first();
+
+        DB::table('settings')->update([
+            'hero_badge' => $request->hero_badge ?? $settings->hero_badge,
+            'hero_title' => $request->hero_title ?? $settings->hero_title,
+            'hero_description' => $request->hero_description ?? $settings->hero_description,
+            'hero_button_text' => $request->hero_button_text ?? $settings->hero_button_text,
+            'hero_button_link' => $request->hero_button_link ?? $settings->hero_button_link,
+            'hero_phone' => $request->hero_phone ?? $settings->hero_phone,
+            'hero_image' => $request->hasFile('hero_image') ? $request->file('hero_image')->store('hero','public') : $settings->hero_image,
+            'hero_feature_title' => $request->hero_feature_title ?? $settings->hero_feature_title,
+            'hero_feature_subtitle' => $request->hero_feature_subtitle ?? $settings->hero_feature_subtitle,
+        ]);
+
+        return back()->with('success', 'Hero alanı güncellendi!');
+    }
 }
