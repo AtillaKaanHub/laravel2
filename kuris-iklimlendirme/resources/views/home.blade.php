@@ -251,43 +251,62 @@
 
   
 
- <section id="about" class="section py-16 bg-white">
+ @php
+    $setting = \App\Models\Setting::first();
+@endphp
+
+<section id="about" class="section py-16 bg-white">
     <div class="custom-container max-w-6xl mx-auto px-4">
-        
+
         <div class="flex flex-col md:flex-row items-center gap-12">
-            
+
             <div class="w-full md:w-1/2">
                 <div class="rounded-2xl overflow-hidden border-4 border-white shadow-2xl h-80 md:h-96 relative group">
-                    <img src="{{ asset('dükkan.jpg') }}" alt="dükkan" class="w-full h-full object-cover transform transition duration-500 group-hover:scale-110">
+                    <img src="{{ $setting && $setting->about_image ? asset($setting->about_image) : 'http://127.0.0.1:8000/dükkan.jpg' }}"
+                         alt="Hakkımızda"
+                         class="w-full h-full object-cover transform transition duration-500 group-hover:scale-110">
                 </div>
             </div>
 
             <div class="w-full md:w-1/2">
-                <h2 class="text-3xl font-bold text-blue-700 mb-6">Kuriş İklimlendirme Hakkında</h2>
-                
+
+                <h2 class="text-3xl font-bold text-blue-700 mb-6">
+                    {{ $setting->about_title ?? 'Kuriş İklimlendirme Hakkında' }}
+                </h2>
+
                 <p class="text-gray-600 leading-relaxed text-lg mb-6">
-                    Yılların verdiği tecrübe ile sektörde güvenin adresi olan firmamız, müşteri memnuniyetini her zaman ön planda tutmaktadır. İşinizi şansa değil, ustalara bırakın.
+                    {{ $setting->about_description ?? 'Yılların verdiği tecrübe ile sektörde güvenin adresi olan firmamız, müşteri memnuniyetini her zaman ön planda tutmaktadır. İşinizi şansa değil, ustalara bırakın.' }}
                 </p>
-                
+
                 <ul class="space-y-4">
+
                     <li class="flex items-center gap-3">
                         <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                             <i class="fa-solid fa-check text-blue-600"></i>
                         </div>
-                        <span class="text-gray-700 font-medium">Sertifikalı Uzman Kadro</span>
+                        <span class="text-gray-700 font-medium">
+                            {{ $setting->about_item1 ?? 'Sertifikalı Uzman Kadro' }}
+                        </span>
                     </li>
+
                     <li class="flex items-center gap-3">
                         <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                             <i class="fa-solid fa-check text-blue-600"></i>
                         </div>
-                        <span class="text-gray-700 font-medium">Orijinal Yedek Parça</span>
+                        <span class="text-gray-700 font-medium">
+                            {{ $setting->about_item2 ?? 'Orijinal Yedek Parça' }}
+                        </span>
                     </li>
+
                     <li class="flex items-center gap-3">
                         <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                             <i class="fa-solid fa-check text-blue-600"></i>
                         </div>
-                        <span class="text-gray-700 font-medium">7/24 Teknik Destek</span>
+                        <span class="text-gray-700 font-medium">
+                            {{ $setting->about_item3 ?? '7/24 Teknik Destek' }}
+                        </span>
                     </li>
+
                 </ul>
             </div>
 

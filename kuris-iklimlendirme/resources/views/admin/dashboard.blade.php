@@ -280,7 +280,7 @@ body{
             Kaydet
         </button>
     </form>
-    <!-- 👇 HERO YÖNETİMİ BURAYA EKLE -->
+    <!-- HERO YÖNEİM -->
 <hr class="my-6">
 
 <h2 class="text-xl font-bold mb-4">Hero Alanı Yönetimi</h2>
@@ -342,7 +342,53 @@ body{
 
 </form>
 
+<!-- hakkımızda YÖNEİM -->
 </div>
+
+<hr class="my-6">
+
+<h2 class="text-xl font-bold mb-4">Hakkımızda Yönetimi</h2>
+
+<form action="{{ route('admin.about.update') }}" 
+      method="POST" 
+      enctype="multipart/form-data"
+      class="bg-white p-6 rounded-2xl shadow space-y-4">
+
+    @csrf
+
+    <label class="block font-semibold">Başlık</label>
+    <input type="text" name="about_title"
+           value="{{ $setting->about_title ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Açıklama</label>
+    <textarea name="about_description"
+              class="w-full border p-3 rounded-lg">{{ $setting->about_description ?? '' }}</textarea>
+
+    <label class="block font-semibold">Görsel</label>
+    <input type="file" name="about_image"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Madde 1</label>
+    <input type="text" name="about_item1"
+           value="{{ $setting->about_item1 ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Madde 2</label>
+    <input type="text" name="about_item2"
+           value="{{ $setting->about_item2 ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <label class="block font-semibold">Madde 3</label>
+    <input type="text" name="about_item3"
+           value="{{ $setting->about_item3 ?? '' }}"
+           class="w-full border p-3 rounded-lg">
+
+    <button type="submit"
+            class="bg-blue-600 text-white px-6 py-3 rounded-lg">
+        Kaydet
+    </button>
+</form>
 
     </main>
 </div>

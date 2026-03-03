@@ -47,6 +47,7 @@ Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
     //Logo ayarları
     Route::post('/logo-update', [AdminController::class, 'updateLogo'])->name('admin.logo.update');
     Route::post('/hero-update', [AdminController::class, 'heroUpdate'])->name('admin.hero.update');
+    Route::post('/about-update', [AdminController::class, 'aboutUpdate'])->name('admin.about.update');
     });
 
 

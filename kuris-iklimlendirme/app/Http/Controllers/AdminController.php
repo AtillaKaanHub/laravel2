@@ -131,6 +131,28 @@ public function updateLogo(Request $request)
 
         return back()->with('success', 'Hero alanı güncellendi!');
     }
+
+    public function aboutUpdate(Request $request)
+{
+    $settings = Setting::firstOrCreate([]);
+
+    $settings->about_title = $request->about_title;
+    $settings->about_description = $request->about_description;
+    $settings->about_item1 = $request->about_item1;
+    $settings->about_item2 = $request->about_item2;
+    $settings->about_item3 = $request->about_item3;
+
+    if ($request->hasFile('about_image')) {
+        $imageName = time().'.'.$request->about_image->extension();
+        $request->about_image->move(public_path('uploads'), $imageName);
+
+        $settings->about_image = 'uploads/'.$imageName;
+    }
+
+    $settings->save();
+
+    return back()->with('success', 'Hakkımızda bölümü güncellendi');
+}
 }
 
 
