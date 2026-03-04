@@ -52,7 +52,10 @@ body{
 <!-- Alt Menü -->
 <div id="siteMenu" class="ml-6 mt-2 space-y-2">
     
-    <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">Hizmetler</a>
+    <button onclick="showSection('hizmetler-panel', this)" 
+        class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white">
+   Hizmetler
+</button>
     <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">Kurumsal</a>
     <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">İletişim</a>
 
@@ -514,7 +517,171 @@ class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 te
     </form>
 
 </div>
+<div id="hizmetler-panel" class="section hidden">
+    <h1 class="text-2xl font-bold mb-6">Hizmetler Yönetimi</h1>
 
+    <form action="http://127.0.0.1:8000/admin/services-update" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-2xl shadow space-y-6">
+        <input type="hidden" name="_token" value="YOUR_CSRF_TOKEN_HERE">
+
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 text-gray-700">Genel Bilgiler</h3>
+            <label class="block mb-2 font-semibold">Sayfa Başlığı</label>
+            <input type="text" name="page_title" value="Hizmetlerimiz" class="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500">
+
+            <label class="block mb-2 font-semibold">Sayfa Açıklaması</label>
+            <textarea name="page_description" class="w-full border p-3 rounded-lg h-20 outline-none focus:border-blue-500">Eviniz ve iş yeriniz için sunduğumuz profesyonel iklimlendirme çözümlerini keşfedin.</textarea>
+        </div>
+
+        <hr class="my-4 border-gray-200">
+
+        <div>
+            <div class="flex justify-between items-center border-b pb-2 mb-4">
+                <h3 class="text-lg font-bold text-gray-700">Hizmetler Listesi</h3>
+                <button type="button" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition">
+                    + Yeni Hizmet Ekle
+                </button>
+            </div>
+
+            <div class="service-item mb-6 p-4 border border-gray-200 bg-gray-50 rounded-lg">
+                <label class="block mb-2 font-semibold">Başlık</label>
+                <input type="text" name="services[0][title]" value="Ev Tipi Split Klimalar" class="w-full border p-3 rounded-lg mb-2 outline-none focus:border-blue-500">
+
+                <label class="block mb-2 font-semibold">Açıklama</label>
+                <textarea name="services[0][description]" class="w-full border p-3 rounded-lg h-20 mb-2 outline-none focus:border-blue-500">Evleriniz için en sessiz ve yüksek enerji tasarruflu duvar tipi klima çözümleri sunuyoruz. Keşiften montaja kadar tüm süreçte yanınızdayız.</textarea>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                    <div>
+                        <label class="block mb-2 font-semibold">İkon (Font Awesome sınıfı)</label>
+                        <input type="text" name="services[0][icon]" value="fa-house-chimney" class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold">Görsel</label>
+                        <input type="file" name="services[0][image]" class="w-full border p-2 rounded-lg bg-white outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <label class="block mb-2 font-semibold">Özellikler (virgülle ayır)</label>
+                <input type="text" name="services[0][features]" value="A++ Enerji Verimliliği,Sessiz Çalışma Modu,2 Yıl Montaj Garantisi" class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+            </div>
+
+            <div class="service-item mb-6 p-4 border border-gray-200 bg-gray-50 rounded-lg">
+                <label class="block mb-2 font-semibold">Başlık</label>
+                <input type="text" name="services[1][title]" value="Ticari VRF Sistemleri" class="w-full border p-3 rounded-lg mb-2 outline-none focus:border-blue-500">
+
+                <label class="block mb-2 font-semibold">Açıklama</label>
+                <textarea name="services[1][description]" class="w-full border p-3 rounded-lg h-20 mb-2 outline-none focus:border-blue-500">Plazalar, oteller, hastaneler ve büyük ofisler için merkezi iklimlendirme sistemleri. Tek merkezden tüm binayı kontrol edin.</textarea>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                    <div>
+                        <label class="block mb-2 font-semibold">İkon (Font Awesome sınıfı)</label>
+                        <input type="text" name="services[1][icon]" value="fa-building" class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold">Görsel</label>
+                        <input type="file" name="services[1][image]" class="w-full border p-2 rounded-lg bg-white outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <label class="block mb-2 font-semibold">Özellikler (virgülle ayır)</label>
+                <input type="text" name="services[1][features]" value="Yüksek Kapasite,Merkezi Kontrol Paneli,Projelendirme Hizmeti" class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+            </div>
+
+            <div class="service-item mb-6 p-4 border border-gray-200 bg-gray-50 rounded-lg">
+                <label class="block mb-2 font-semibold">Başlık</label>
+                <input type="text" name="services[2][title]" value="Teknik Servis & Bakım" class="w-full border p-3 rounded-lg mb-2 outline-none focus:border-blue-500">
+
+                <label class="block mb-2 font-semibold">Açıklama</label>
+                <textarea name="services[2][description]" class="w-full border p-3 rounded-lg h-20 mb-2 outline-none focus:border-blue-500">Klimalarınızın ömrünü uzatmak ve performansını artırmak için periyodik bakım hizmeti. Gaz dolumu, filtre temizliği ve arıza tespiti.</textarea>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                    <div>
+                        <label class="block mb-2 font-semibold">İkon (Font Awesome sınıfı)</label>
+                        <input type="text" name="services[2][icon]" value="fa-screwdriver-wrench" class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold">Görsel</label>
+                        <input type="file" name="services[2][image]" class="w-full border p-2 rounded-lg bg-white outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <label class="block mb-2 font-semibold">Özellikler (virgülle ayır)</label>
+                <input type="text" name="services[2][features]" value="7/24 Acil Destek,Antibakteriyel Temizlik,Orijinal Yedek Parça" class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+            </div>
+
+            <div class="service-item mb-6 p-4 border border-gray-200 bg-gray-50 rounded-lg">
+                <label class="block mb-2 font-semibold">Başlık</label>
+                <input type="text" name="services[3][title]" value="Ücretsiz Keşif & Proje" class="w-full border p-3 rounded-lg mb-2 outline-none focus:border-blue-500">
+
+                <label class="block mb-2 font-semibold">Açıklama</label>
+                <textarea name="services[3][description]" class="w-full border p-3 rounded-lg h-20 mb-2 outline-none focus:border-blue-500">Mekana en uygun cihazı belirlemek için uzman ekibimizle ücretsiz keşif yapıyoruz. Doğru BTU hesabı ile tasarruf sağlayın.</textarea>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                    <div>
+                        <label class="block mb-2 font-semibold">İkon (Font Awesome sınıfı)</label>
+                        <input type="text" name="services[3][icon]" value="fa-clipboard-check" class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold">Görsel</label>
+                        <input type="file" name="services[3][image]" class="w-full border p-2 rounded-lg bg-white outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <label class="block mb-2 font-semibold">Özellikler (virgülle ayır)</label>
+                <input type="text" name="services[3][features]" value="Yerinde İnceleme,Termal Analiz,Fiyat Performans Raporu" class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+            </div>
+        </div>
+
+        <hr class="my-4 border-gray-200">
+
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 text-gray-700">Nasıl Çalışıyoruz? (Süreç Adımları)</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="font-bold text-blue-600 mb-2">Adım 1</div>
+                    <label class="block mb-1 text-sm font-semibold">Başlık</label>
+                    <input type="text" name="process[0][title]" value="İletişim" class="w-full border p-2 rounded mb-2 text-sm outline-none focus:border-blue-500">
+                    
+                    <label class="block mb-1 text-sm font-semibold">Açıklama</label>
+                    <textarea name="process[0][description]" class="w-full border p-2 rounded h-16 text-sm outline-none focus:border-blue-500">Bize ulaşın ve talebinizi iletin.</textarea>
+                </div>
+
+                <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="font-bold text-blue-500 mb-2">Adım 2</div>
+                    <label class="block mb-1 text-sm font-semibold">Başlık</label>
+                    <input type="text" name="process[1][title]" value="Keşif" class="w-full border p-2 rounded mb-2 text-sm outline-none focus:border-blue-500">
+                    
+                    <label class="block mb-1 text-sm font-semibold">Açıklama</label>
+                    <textarea name="process[1][description]" class="w-full border p-2 rounded h-16 text-sm outline-none focus:border-blue-500">Uzman ekibimiz yerinde inceleme yapar.</textarea>
+                </div>
+
+                <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="font-bold text-cyan-500 mb-2">Adım 3</div>
+                    <label class="block mb-1 text-sm font-semibold">Başlık</label>
+                    <input type="text" name="process[2][title]" value="Montaj" class="w-full border p-2 rounded mb-2 text-sm outline-none focus:border-blue-500">
+                    
+                    <label class="block mb-1 text-sm font-semibold">Açıklama</label>
+                    <textarea name="process[2][description]" class="w-full border p-2 rounded h-16 text-sm outline-none focus:border-blue-500">Profesyonel ve temiz kurulum yapılır.</textarea>
+                </div>
+
+                <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+                    <div class="font-bold text-green-500 mb-2">Adım 4</div>
+                    <label class="block mb-1 text-sm font-semibold">Başlık</label>
+                    <input type="text" name="process[3][title]" value="Teslim" class="w-full border p-2 rounded mb-2 text-sm outline-none focus:border-blue-500">
+                    
+                    <label class="block mb-1 text-sm font-semibold">Açıklama</label>
+                    <textarea name="process[3][description]" class="w-full border p-2 rounded h-16 text-sm outline-none focus:border-blue-500">Sistem test edilir ve teslim edilir.</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-6 border-t mt-6">
+            <button type="submit" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-lg transition-colors shadow-lg">
+                Tüm Değişiklikleri Kaydet
+            </button>
+        </div>
+    </form>
+</div>
 </main>
 
     </main>
