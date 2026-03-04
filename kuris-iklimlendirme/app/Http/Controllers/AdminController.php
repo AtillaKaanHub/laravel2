@@ -153,6 +153,38 @@ public function updateLogo(Request $request)
 
     return back()->with('success', 'Hakkımızda bölümü güncellendi');
 }
+
+public function footerUpdate(Request $request)
+{
+    $settings = \App\Models\Setting::first();
+
+    if (!$settings) {
+        $settings = new \App\Models\Setting();
+    }
+
+    $settings->footer_description = $request->footer_description;
+    $settings->footer_address = $request->footer_address;
+    $settings->footer_phone = $request->footer_phone;
+    $settings->footer_email = $request->footer_email;
+
+    $settings->footer_work1 = $request->footer_work1;
+    $settings->footer_work2 = $request->footer_work2;
+    $settings->footer_work3 = $request->footer_work3;
+
+    $settings->footer_facebook = $request->footer_facebook;
+    $settings->footer_instagram = $request->footer_instagram;
+
+    if ($request->hasFile('footer_logo')) {
+        $imageName = time().'.'.$request->footer_logo->extension();
+        $request->footer_logo->move(public_path('uploads'), $imageName);
+        $settings->footer_logo = 'uploads/'.$imageName;
+    }
+
+    $settings->save();
+
+    return back()->with('success', 'Footer güncellendi.');
+}
+
 }
 
 

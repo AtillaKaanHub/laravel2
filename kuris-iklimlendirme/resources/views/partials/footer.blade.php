@@ -23,26 +23,26 @@
         <span class="text-2xl font-bold text-white tracking-wide">KURİŞ</span>
     </div>
 
-        <p class="mt-4 text-gray-400 max-w-md">
-          İklimlendirme sektöründe güven ve kalitenin adresi. Eviniz ve iş yeriniz için modern, enerji tasarruflu ve çevre dostu çözümler.
-        </p>
+      <p class="mt-4 text-gray-400 max-w-md">
+  {{ $settings->footer_description ?? 'İklimlendirme sektöründe güven ve kalitenin adresi. Eviniz ve iş yeriniz için modern, enerji tasarruflu ve çevre dostu çözümler.' }}
+</p>
 
         <div class="mt-6 space-y-3 text-sm">
           <a href="https://www.google.com/maps/search/?api=1&query=Hürriyet,+İsmet+İnönü+Blv.+no:111/A,+33120+Yenişehir/Mersin"
              target="_blank"
              class="flex items-center gap-3 hover:text-blue-400 transition">
             <i class="fa-solid fa-location-dot text-blue-500"></i>
-            Hürriyet, İsmet İnönü Blv. no:111/A, Yenişehir/Mersin
+           {{ $settings->footer_address ?? 'Hürriyet, İsmet İnönü Blv. no:111/A, Yenişehir/Mersin' }}
           </a>
 
           <p class="flex items-center gap-3">
             <i class="fa-solid fa-phone text-blue-500"></i>
-            +90 501 030 3361
+           {{ $settings->footer_phone ?? '+90 501 030 3361' }}
           </p>
 
           <p class="flex items-center gap-3">
             <i class="fa-solid fa-envelope text-blue-500"></i>
-            info@kurisiklim.com
+            {{ $settings->footer_email ?? 'info@kurisiklim.com' }}
           </p>
         </div>
       </div>
@@ -83,9 +83,26 @@
         </h3>
 
         <ul class="space-y-3 text-sm text-gray-400">
-          <li class="flex justify-between"><span>Pzt - Cuma:</span><span class="text-white">08:00 - 19:00</span></li>
-          <li class="flex justify-between"><span>Cmtesi:</span><span class="text-white">08:00 - 19:00</span></li>
-          <li class="flex justify-between"><span>Pazar:</span><span class="text-red-400">Kapalı</span></li>
+         <li class="flex justify-between">
+    <span>Pzt - Cuma:</span>
+    <span class="text-white">
+        {{ $settings->footer_work1 ?? '08:00 - 19:00' }}
+    </span>
+</li>
+
+<li class="flex justify-between">
+    <span>Cmtesi:</span>
+    <span class="text-white">
+        {{ $settings->footer_work2 ?? '08:00 - 19:00' }}
+    </span>
+</li>
+
+<li class="flex justify-between">
+    <span>Pazar:</span>
+    <span class="text-red-400">
+        {{ $settings->footer_work3 ?? 'Kapalı' }}
+    </span>
+</li>
         </ul>
       </div>
 
@@ -99,11 +116,11 @@
       </p>
 
       <div class="flex gap-4">
-        <a href="https://www.facebook.com/4mevsimiklimlendirme/?locale=pa_IN" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-800 hover:bg-blue-600 transition text-white">
+       <a href="{{ $settings->footer_facebook ?? 'https://www.facebook.com/4mevsimiklimlendirme/?locale=pa_IN' }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-800 hover:bg-blue-600 transition text-white">
           <i class="fa-brands fa-facebook-f"></i>
         </a>
 
-        <a href="https://www.instagram.com/kurisiklimlendirme/" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-800 hover:bg-pink-600 transition text-white">
+        <a href="{{ $settings->footer_instagram ?? 'https://www.instagram.com/kurisiklimlendirme/' }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-800 hover:bg-pink-600 transition text-white">
           <i class="fa-brands fa-instagram"></i>
         </a>
       </div>
