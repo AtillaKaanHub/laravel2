@@ -61,8 +61,9 @@ body{
         class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white">
     Ana Sayfa
 </button>
-<button onclick="showSection('menu', this)" class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white active">
-    Header/Footer
+<button onclick="showSection('header-footer', this)"
+class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white">
+    Header / Footer
 </button>
 </div>
 
@@ -80,7 +81,7 @@ body{
     <main class="flex-1 p-8">
 
         <!-- DASHBOARD -->
-        <div id="dashboard">
+        <div id="dashboard" class="section hidden">
 
             <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
 
@@ -106,7 +107,7 @@ body{
         </div>
 
         <!-- TEKLIFLER -->
-        <div id="teklifler" class="hidden">
+        <div id="teklifler" class="section hidden">
 
             <h1 class="text-2xl font-bold mb-6">Gelen Teklifler</h1>
 
@@ -173,7 +174,7 @@ body{
         </div>
 
         <!-- YORUMLAR -->
-       <div id="yorumlar" class="hidden">
+       <div id="yorumlar" class="section hidden">
     <h1 class="text-2xl font-bold mb-6">Yorum Yönetimi</h1>
 
    @foreach($yorumlar as $yorum)
@@ -230,31 +231,12 @@ body{
         <!-- SITE YONETIM -->
        
 <!-- ANA SAYFA YÖNETİMİ -->
-<div id="menu" class="hidden">
+<div id="menu" class="section hidden">
 
     <h1 class="text-2xl font-bold mb-6">Header Menü Yönetimi</h1>
     <hr class="my-6">
 
-<h2 class="text-xl font-bold mb-4">Logo Yönetimi</h2>
 
-<form action="{{ url('/admin/logo-update') }}" 
-      method="POST" 
-      enctype="multipart/form-data"
-      class="mb-8">
-
-    @csrf
-
-    <label class="block mb-2 font-semibold">Logo Yükle</label>
-
-    <input type="file" 
-           name="logo" 
-           class="w-full border p-3 rounded-lg mb-4">
-
-    <button type="submit" 
-            class="bg-blue-600 text-white px-6 py-3 rounded-lg">
-        Logoyu Kaydet
-    </button>
-</form>
 
     <form action="{{ route('admin.settings.update') }}" method="POST" class="bg-white p-6 rounded-2xl shadow">
         @csrf
@@ -392,7 +374,148 @@ body{
         Kaydet
     </button>
 </form>
-</div> </main>
+</div> 
+
+<!-- HEADER/FOOTER YÖNEİM -->
+
+<div id="header-footer"class="section hidden">
+
+    <h1 class="text-2xl font-bold mb-6">Header & Footer Yönetimi</h1>
+    
+    <hr class="my-6">
+    <h2 class="text-xl font-bold mb-4">Logo Yönetimi</h2>
+
+    <form action="http://127.0.0.1:8000/admin/logo-update" method="POST" enctype="multipart/form-data" class="mb-8">
+        <input type="hidden" name="_token" value="ljdcAbumpIMxWBt3caH1hDyx1q28dGUMjKCoYt1b" autocomplete="off">
+        <label class="block mb-2 font-semibold">Logo Yükle</label>
+        <input type="file" name="logo" class="w-full border p-3 rounded-lg mb-4">
+        <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg">
+            Logoyu Kaydet
+        </button>
+    </form>
+
+    <hr class="my-6">
+    <h2 class="text-xl font-bold mb-4">Menü Linkleri</h2>
+
+    <form action="http://127.0.0.1:8000/admin/settings" method="POST" class="bg-white p-6 rounded-2xl shadow">
+        <input type="hidden" name="_token" value="ljdcAbumpIMxWBt3caH1hDyx1q28dGUMjKCoYt1b" autocomplete="off">
+        
+        <label class="block mb-2 font-semibold">Ana Sayfa</label>
+        <input type="text" name="menu_home" value="Ana Sayfa" class="w-full border p-3 rounded-lg mb-4">
+
+        <label class="block mb-2 font-semibold">Hizmetler</label>
+        <input type="text" name="menu_services" value="Hizmetler" class="w-full border p-3 rounded-lg mb-4">
+
+        <label class="block mb-2 font-semibold">Kurumsal</label>
+        <input type="text" name="menu_corporate" value="Kurumsal" class="w-full border p-3 rounded-lg mb-4">
+
+        <label class="block mb-2 font-semibold">İletişim</label>
+        <input type="text" name="menu_contact" value="İletişim" class="w-full border p-3 rounded-lg mb-4">
+
+        <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg">
+            Kaydet
+        </button>
+    </form>
+    <hr class="my-8">
+    
+    <h1 class="text-2xl font-bold mb-6">Footer Yönetimi</h1>
+
+    <form action="http://127.0.0.1:8000/admin/footer-update" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-2xl shadow space-y-6">
+        <input type="hidden" name="_token" value="ljdcAbumpIMxWBt3caH1hDyx1q28dGUMjKCoYt1b" autocomplete="off">
+
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 text-gray-700">Firma Bilgileri & İletişim</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block mb-2 font-semibold">Firma Adı (Logonun Yanındaki)</label>
+                    <input type="text" name="footer_company_name" value="KURİŞ" class="w-full border p-3 rounded-lg">
+                </div>
+                <div>
+                    <label class="block mb-2 font-semibold">Firma Açıklaması</label>
+                    <textarea name="footer_description" class="w-full border p-3 rounded-lg h-12">İklimlendirme sektöründe güven ve kalitenin adresi. Eviniz ve iş yeriniz için modern, enerji tasarruflu ve çevre dostu çözümler.</textarea>
+                </div>
+                <div>
+                    <label class="block mb-2 font-semibold">Adres Metni</label>
+                    <input type="text" name="footer_address_text" value="Hürriyet, İsmet İnönü Blv. no:111/A, Yenişehir/Mersin" class="w-full border p-3 rounded-lg">
+                </div>
+                <div>
+                    <label class="block mb-2 font-semibold">Adres Harita Linki</label>
+                    <input type="text" name="footer_address_link" value="https://www.google.com/maps/search/?api=1&query=Hürriyet,+İsmet+İnönü+Blv.+no:111/A,+33120+Yenişehir/Mersin" class="w-full border p-3 rounded-lg">
+                </div>
+                <div>
+                    <label class="block mb-2 font-semibold">Telefon Numarası</label>
+                    <input type="text" name="footer_phone" value="+90 501 030 3361" class="w-full border p-3 rounded-lg">
+                </div>
+                <div>
+                    <label class="block mb-2 font-semibold">E-Posta Adresi</label>
+                    <input type="text" name="footer_email" value="info@kurisiklim.com" class="w-full border p-3 rounded-lg">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 mt-4 text-gray-700">Çalışma Saatleri</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block mb-2 font-semibold">Hafta İçi Saatleri</label>
+                    <input type="text" name="footer_hours_weekday" value="08:00 - 19:00" class="w-full border p-3 rounded-lg">
+                </div>
+                <div>
+                    <label class="block mb-2 font-semibold">Cumartesi Saatleri</label>
+                    <input type="text" name="footer_hours_saturday" value="08:00 - 19:00" class="w-full border p-3 rounded-lg">
+                </div>
+                <div>
+                    <label class="block mb-2 font-semibold">Pazar Durumu</label>
+                    <input type="text" name="footer_hours_sunday" value="Kapalı" class="w-full border p-3 rounded-lg">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 mt-4 text-gray-700">Hızlı Linkler Listesi</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <label class="block font-semibold">Hizmetler Listesi (Virgülle Ayırın)</label>
+                    <input type="text" name="footer_services_list" value="Split Klima, VRF Sistemleri, Kombi Bakım" class="w-full border p-3 rounded-lg">
+                    <p class="text-xs text-gray-500">Örn: Split Klima, VRF Sistemleri, Kombi Bakım</p>
+                </div>
+                <div class="space-y-3">
+                    <label class="block font-semibold">Kurumsal Listesi (Virgülle Ayırın)</label>
+                    <input type="text" name="footer_corporate_list" value="Hakkımızda, Belgelerimiz" class="w-full border p-3 rounded-lg">
+                    <p class="text-xs text-gray-500">Örn: Hakkımızda, Belgelerimiz</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 mt-4 text-gray-700">Alt Bilgi & Sosyal Medya</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="md:col-span-3">
+                    <label class="block mb-2 font-semibold">Telif Hakkı Metni (Copyright)</label>
+                    <input type="text" name="footer_copyright" value="© 2024 Kuriş İklimlendirme. Tüm hakları saklıdır." class="w-full border p-3 rounded-lg">
+                </div>
+                <div class="md:col-span-1">
+                    <label class="block mb-2 font-semibold">Facebook Linki</label>
+                    <input type="text" name="footer_social_facebook" value="https://www.facebook.com/4mevsimiklimlendirme/?locale=pa_IN" class="w-full border p-3 rounded-lg">
+                </div>
+                <div class="md:col-span-1">
+                    <label class="block mb-2 font-semibold">Instagram Linki</label>
+                    <input type="text" name="footer_social_instagram" value="https://www.instagram.com/kurisiklimlendirme/" class="w-full border p-3 rounded-lg">
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-4">
+            <button type="submit" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-lg transition-colors">
+                Footer Bilgilerini Kaydet
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+</main>
 
     </main>
 </div>
@@ -400,26 +523,23 @@ body{
 <script>
 
 function showSection(id, element){
-    // 'menu' id'sini bu listeye ekledik
-    let sections = ['dashboard', 'teklifler', 'yorumlar', 'site', 'menu'];
-    let links = document.querySelectorAll('.sidebar-link');
 
-    sections.forEach(sec=>{
-        // Eğer element varsa gizle (hata almamak için ufak bir güvenlik kontrolü)
-        let sectionElement = document.getElementById(sec);
-        if(sectionElement) {
-            sectionElement.classList.add('hidden');
-        }
+    // TÜM sectionları gizle
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.add('hidden');
     });
 
-    // Sadece tıklanan id'yi göster
-    let targetElement = document.getElementById(id);
-    if(targetElement) {
-        targetElement.classList.remove('hidden');
+    // Tıklananı göster
+    let target = document.getElementById(id);
+    if(target){
+        target.classList.remove('hidden');
     }
 
-    // Aktif class'ını ayarla
-    links.forEach(link => link.classList.remove('active'));
+    // Aktif buton stilini ayarla
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.classList.remove('active');
+    });
+
     element.classList.add('active');
 }
 
