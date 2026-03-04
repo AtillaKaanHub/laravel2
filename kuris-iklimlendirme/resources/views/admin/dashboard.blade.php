@@ -61,6 +61,9 @@ body{
         class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white">
     Ana Sayfa
 </button>
+<button onclick="showSection('menu', this)" class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white active">
+    Header/Footer
+</button>
 </div>
 
         </nav>
@@ -343,7 +346,7 @@ body{
 </form>
 
 <!-- hakkımızda YÖNEİM -->
-</div>
+
 
 <hr class="my-6">
 
@@ -389,6 +392,7 @@ body{
         Kaydet
     </button>
 </form>
+</div> </main>
 
     </main>
 </div>
