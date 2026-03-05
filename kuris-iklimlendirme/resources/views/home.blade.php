@@ -228,8 +228,7 @@
             
             <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                <img src="{{ optional($settings)->hero_image ? asset('storage/'.$settings->hero_image) : asset('hero-klima.jpg') }}">
-                     alt="Kuriş İklimlendirme Klima Montajı" 
-                     class="w-full h-full object-cover">
+                   
                      
                 <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-white/50 hidden sm:block">
                     <div class="flex items-center gap-3">
