@@ -53,14 +53,20 @@ class AdminController extends Controller
         return back()->with('error', 'Email veya şifre yanlış!');
     }
 
-    public function dashboard()
+  public function dashboard()
 {
     $teklifler = Teklif::latest()->get();
     $yorumlar  = Yorum::latest()->get();
     $mesajlar  = Message::latest()->get();
-    $setting   = Setting::first(); 
+    
+    // 1. DEĞİŞİKLİK: Blade ile uyumlu olması için adını $settings yaptık (sonuna s ekledik)
+    $settings  = Setting::first(); 
+    
+    // 2. DEĞİŞİKLİK: Hizmetlerimizi veritabanından çekiyoruz
+    $services  = \App\Models\Service::all(); 
 
-    return view('admin.dashboard', compact('teklifler','yorumlar','mesajlar','setting'));
+    // 3. DEĞİŞİKLİK: 'settings' ve 'services' değişkenlerini view'a (blade'e) gönderiyoruz
+    return view('admin.dashboard', compact('teklifler', 'yorumlar', 'mesajlar', 'settings', 'services'));
 }
     public function logout()
     {

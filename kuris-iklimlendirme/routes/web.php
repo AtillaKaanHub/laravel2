@@ -7,6 +7,7 @@ use App\Http\Controllers\YorumController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ServiceController;
 
 
 
@@ -49,6 +50,7 @@ Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
     Route::post('/hero-update', [AdminController::class, 'heroUpdate'])->name('admin.hero.update');
     Route::post('/about-update', [AdminController::class, 'aboutUpdate'])->name('admin.about.update');
     Route::post('/footer-update', [AdminController::class, 'footerUpdate']);
+    Route::post('/services-update', [ServiceController::class, 'update']);
     });
 
 
@@ -57,7 +59,10 @@ Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
 
 
 Route::get('/', [OfferController::class, 'index']);
-Route::view('/hizmetler', 'hizmetler');
+Route::get('/hizmetler', function () {
+    $services = \App\Models\Service::all();
+    return view('hizmetler', compact('services'));
+});
 Route::view('/kurumsal', 'kurumsal');
 Route::view('/iletisim', 'iletisim');
 Route::post('/yorum-ekle', [YorumController::class, 'store'])->name('yorum.ekle');

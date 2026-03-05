@@ -100,19 +100,15 @@
             .nav-links { display: none; }
         }
     </style>
-    @endsection
-
-
-    
-@section('content')
+@extends('layouts.app') @section('content')
     <div class="pt-32 pb-16 bg-gradient-to-r from-blue-900 to-blue-600 text-white text-center relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full opacity-10">
             <i class="fa-solid fa-snowflake absolute top-10 left-10 text-9xl"></i>
             <i class="fa-solid fa-wind absolute bottom-10 right-10 text-9xl"></i>
         </div>
         <div class="custom-container relative z-10">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Hizmetlerimiz</h1>
-            <p class="text-lg text-blue-100 max-w-2xl mx-auto">Eviniz ve iş yeriniz için sunduğumuz profesyonel iklimlendirme çözümlerini keşfedin.</p>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ $settings->page_title ?? 'Hizmetlerimiz' }}</h1>
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto">{{ $settings->page_description ?? 'Eviniz ve iş yeriniz için sunduğumuz profesyonel iklimlendirme çözümlerini keşfedin.' }}</p>
         </div>
     </div>
 
@@ -124,20 +120,21 @@
                 <div class="bg-white rounded-2xl overflow-hidden shadow-lg service-card-detail group">
                     <div class="h-64 overflow-hidden relative">
                         <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition duration-500 z-10"></div>
-                        <img src="{{ asset('evtipi.jpg') }}" alt="evtipi"  class="w-full h-full object-cover object-center">
+                        <img src="{{ isset($services[0]->image) && $services[0]->image ? asset('storage/'.$services[0]->image) : asset('evtipi.jpg') }}" alt="evtipi"  class="w-full h-full object-cover object-center">
                     </div>
                     <div class="p-8">
                         <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl mb-6">
-                            <i class="fa-solid fa-house-chimney"></i>
+                            <i class="fa-solid {{ $services[0]->icon ?? 'fa-house-chimney' }}"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Ev Tipi Split Klimalar</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ $services[0]->title ?? 'Ev Tipi Split Klimalar' }}</h3>
                         <p class="text-gray-600 mb-6 leading-relaxed">
-                            Evleriniz için en sessiz ve yüksek enerji tasarruflu duvar tipi klima çözümleri sunuyoruz. Keşiften montaja kadar tüm süreçte yanınızdayız.
+                            {{ $services[0]->description ?? 'Evleriniz için en sessiz ve yüksek enerji tasarruflu duvar tipi klima çözümleri sunuyoruz. Keşiften montaja kadar tüm süreçte yanınızdayız.' }}
                         </p>
                         <ul class="space-y-2 mb-6">
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> A++ Enerji Verimliliği</li>
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> Sessiz Çalışma Modu</li>
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> 2 Yıl Montaj Garantisi</li>
+                            @php $f0 = explode(',', $services[0]->features ?? 'A++ Enerji Verimliliği,Sessiz Çalışma Modu,2 Yıl Montaj Garantisi'); @endphp
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f0[0] ?? '' }}</li>
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f0[1] ?? '' }}</li>
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f0[2] ?? '' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -145,20 +142,21 @@
                 <div class="bg-white rounded-2xl overflow-hidden shadow-lg service-card-detail group">
                     <div class="h-64 overflow-hidden relative">
                         <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition duration-500 z-10"></div>
-                        <img src="{{ asset('merkezi.jpg') }}" alt="VRF Sistem" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                        <img src="{{ isset($services[1]->image) && $services[1]->image ? asset('storage/'.$services[1]->image) : asset('merkezi.jpg') }}" alt="VRF Sistem" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                     </div>
                     <div class="p-8">
                         <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl mb-6">
-                            <i class="fa-solid fa-building"></i>
+                            <i class="fa-solid {{ $services[1]->icon ?? 'fa-building' }}"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Ticari VRF Sistemleri</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ $services[1]->title ?? 'Ticari VRF Sistemleri' }}</h3>
                         <p class="text-gray-600 mb-6 leading-relaxed">
-                            Plazalar, oteller, hastaneler ve büyük ofisler için merkezi iklimlendirme sistemleri. Tek merkezden tüm binayı kontrol edin.
+                            {{ $services[1]->description ?? 'Plazalar, oteller, hastaneler ve büyük ofisler için merkezi iklimlendirme sistemleri. Tek merkezden tüm binayı kontrol edin.' }}
                         </p>
                         <ul class="space-y-2 mb-6">
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> Yüksek Kapasite</li>
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> Merkezi Kontrol Paneli</li>
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> Projelendirme Hizmeti</li>
+                            @php $f1 = explode(',', $services[1]->features ?? 'Yüksek Kapasite,Merkezi Kontrol Paneli,Projelendirme Hizmeti'); @endphp
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f1[0] ?? '' }}</li>
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f1[1] ?? '' }}</li>
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f1[2] ?? '' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -166,20 +164,21 @@
                 <div class="bg-white rounded-2xl overflow-hidden shadow-lg service-card-detail group">
                     <div class="h-64 overflow-hidden relative">
                         <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition duration-500 z-10"></div>
-                        <img src="{{ asset('işçi.jpg') }}" alt="Klima Bakım" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                        <img src="{{ isset($services[2]->image) && $services[2]->image ? asset('storage/'.$services[2]->image) : asset('işçi.jpg') }}" alt="Klima Bakım" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                     </div>
                     <div class="p-8">
                         <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl mb-6">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                            <i class="fa-solid {{ $services[2]->icon ?? 'fa-screwdriver-wrench' }}"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Teknik Servis & Bakım</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ $services[2]->title ?? 'Teknik Servis & Bakım' }}</h3>
                         <p class="text-gray-600 mb-6 leading-relaxed">
-                            Klimalarınızın ömrünü uzatmak ve performansını artırmak için periyodik bakım hizmeti. Gaz dolumu, filtre temizliği ve arıza tespiti.
+                            {{ $services[2]->description ?? 'Klimalarınızın ömrünü uzatmak ve performansını artırmak için periyodik bakım hizmeti. Gaz dolumu, filtre temizliği ve arıza tespiti.' }}
                         </p>
                         <ul class="space-y-2 mb-6">
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> 7/24 Acil Destek</li>
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> Antibakteriyel Temizlik</li>
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> Orijinal Yedek Parça</li>
+                            @php $f2 = explode(',', $services[2]->features ?? '7/24 Acil Destek,Antibakteriyel Temizlik,Orijinal Yedek Parça'); @endphp
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f2[0] ?? '' }}</li>
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f2[1] ?? '' }}</li>
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f2[2] ?? '' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -187,20 +186,21 @@
                  <div class="bg-white rounded-2xl overflow-hidden shadow-lg service-card-detail group">
                     <div class="h-64 overflow-hidden relative">
                         <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition duration-500 z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1931&auto=format&fit=crop" alt="Projelendirme" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                        <img src="{{ isset($services[3]->image) && $services[3]->image ? asset('storage/'.$services[3]->image) : 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1931&auto=format&fit=crop' }}" alt="Projelendirme" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                     </div>
                     <div class="p-8">
                         <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl mb-6">
-                            <i class="fa-solid fa-clipboard-check"></i>
+                            <i class="fa-solid {{ $services[3]->icon ?? 'fa-clipboard-check' }}"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Ücretsiz Keşif & Proje</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ $services[3]->title ?? 'Ücretsiz Keşif & Proje' }}</h3>
                         <p class="text-gray-600 mb-6 leading-relaxed">
-                            Mekana en uygun cihazı belirlemek için uzman ekibimizle ücretsiz keşif yapıyoruz. Doğru BTU hesabı ile tasarruf sağlayın.
+                            {{ $services[3]->description ?? 'Mekana en uygun cihazı belirlemek için uzman ekibimizle ücretsiz keşif yapıyoruz. Doğru BTU hesabı ile tasarruf sağlayın.' }}
                         </p>
                         <ul class="space-y-2 mb-6">
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> Yerinde İnceleme</li>
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> Termal Analiz</li>
-                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> Fiyat Performans Raporu</li>
+                            @php $f3 = explode(',', $services[3]->features ?? 'Yerinde İnceleme,Termal Analiz,Fiyat Performans Raporu'); @endphp
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f3[0] ?? '' }}</li>
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f3[1] ?? '' }}</li>
+                            <li class="flex items-center gap-2 text-sm text-gray-500"><i class="fa-solid fa-check text-green-500"></i> {{ $f3[2] ?? '' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -216,30 +216,31 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="relative">
                     <div class="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-xl z-10 relative">1</div>
-                    <h4 class="font-bold text-lg mb-2">İletişim</h4>
-                    <p class="text-sm text-gray-500">Bize ulaşın ve talebinizi iletin.</p>
+                    <h4 class="font-bold text-lg mb-2">{{ $process[0]->title ?? 'İletişim' }}</h4>
+                    <p class="text-sm text-gray-500">{{ $process[0]->description ?? 'Bize ulaşın ve talebinizi iletin.' }}</p>
                 </div>
                 <div class="relative">
                     <div class="hidden md:block absolute top-10 right-1/2 w-full h-1 bg-gray-200 -z-0"></div>
                     <div class="w-20 h-20 bg-blue-500 text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-xl z-10 relative">2</div>
-                    <h4 class="font-bold text-lg mb-2">Keşif</h4>
-                    <p class="text-sm text-gray-500">Uzman ekibimiz yerinde inceleme yapar.</p>
+                    <h4 class="font-bold text-lg mb-2">{{ $process[1]->title ?? 'Keşif' }}</h4>
+                    <p class="text-sm text-gray-500">{{ $process[1]->description ?? 'Uzman ekibimiz yerinde inceleme yapar.' }}</p>
                 </div>
                 <div class="relative">
                      <div class="hidden md:block absolute top-10 right-1/2 w-full h-1 bg-gray-200 -z-0"></div>
                     <div class="w-20 h-20 bg-cyan-500 text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-xl z-10 relative">3</div>
-                    <h4 class="font-bold text-lg mb-2">Montaj</h4>
-                    <p class="text-sm text-gray-500">Profesyonel ve temiz kurulum yapılır.</p>
+                    <h4 class="font-bold text-lg mb-2">{{ $process[2]->title ?? 'Montaj' }}</h4>
+                    <p class="text-sm text-gray-500">{{ $process[2]->description ?? 'Profesyonel ve temiz kurulum yapılır.' }}</p>
                 </div>
                 <div class="relative">
                      <div class="hidden md:block absolute top-10 right-1/2 w-full h-1 bg-gray-200 -z-0"></div>
                     <div class="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-xl z-10 relative">4</div>
-                    <h4 class="font-bold text-lg mb-2">Teslim</h4>
-                    <p class="text-sm text-gray-500">Sistem test edilir ve teslim edilir.</p>
+                    <h4 class="font-bold text-lg mb-2">{{ $process[3]->title ?? 'Teslim' }}</h4>
+                    <p class="text-sm text-gray-500">{{ $process[3]->description ?? 'Sistem test edilir ve teslim edilir.' }}</p>
                 </div>
             </div>
         </div>
     </section>
+@endsection
 
  
 

@@ -227,7 +227,7 @@
             <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500"></div>
             
             <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                <img src="{{ $settings->hero_image ? asset('storage/'.$settings->hero_image) : asset('hero-klima.jpg') }}" 
+               <img src="{{ optional($settings)->hero_image ? asset('storage/'.$settings->hero_image) : asset('hero-klima.jpg') }}">
                      alt="Kuriş İklimlendirme Klima Montajı" 
                      class="w-full h-full object-cover">
                      
