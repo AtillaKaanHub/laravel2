@@ -107,8 +107,8 @@
             <i class="fa-solid fa-wind absolute bottom-10 right-10 text-9xl"></i>
         </div>
         <div class="custom-container relative z-10">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ $settings->page_title ?? 'Hizmetlerimiz' }}</h1>
-            <p class="text-lg text-blue-100 max-w-2xl mx-auto">{{ $settings->page_description ?? 'Eviniz ve iş yeriniz için sunduğumuz profesyonel iklimlendirme çözümlerini keşfedin.' }}</p>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ $settings['services_page_title'] ?? 'Hizmetlerimiz' }}</h1>
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto">{{ $settings['services_page_description'] ?? 'Eviniz ve iş yeriniz için sunduğumuz profesyonel iklimlendirme çözümlerini keşfedin.' }}</p>
         </div>
     </div>
 

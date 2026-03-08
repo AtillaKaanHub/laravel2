@@ -61,7 +61,17 @@ Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
 Route::get('/', [OfferController::class, 'index']);
 Route::get('/hizmetler', function () {
     $services = \App\Models\Service::all();
-    return view('hizmetler', compact('services'));
+
+    $process = [
+        ['title' => 'İletişim', 'description' => 'Bize ulaşın ve talebinizi iletin.'],
+        ['title' => 'Keşif', 'description' => 'Uzman ekibimiz yerinde inceleme yapar.'],
+        ['title' => 'Montaj', 'description' => 'Profesyonel ve temiz kurulum yapılır.'],
+        ['title' => 'Teslim', 'description' => 'Sistem test edilir ve teslim edilir.'],
+    ];
+
+    $settings = \App\Models\Setting::all()->pluck('value', 'key');
+
+    return view('hizmetler', compact('services', 'process', 'settings'));
 });
 Route::view('/kurumsal', 'kurumsal');
 Route::view('/iletisim', 'iletisim');

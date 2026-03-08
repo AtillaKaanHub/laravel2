@@ -10,10 +10,15 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {Schema::create('services', function (Blueprint $table) {
+    { Schema::create('services', function (Blueprint $table) {
         $table->id();
-        $table->string('name');
-        $table->decimal('base_price', 10, 2);
+        $table->string('name')->nullable();
+        $table->string('title');
+        $table->text('description')->nullable();
+        $table->string('icon')->nullable();
+        $table->text('features')->nullable();
+        $table->string('image')->nullable();
+        $table->decimal('base_price', 10, 2)->default(0);
         $table->timestamps();
     });
     }
