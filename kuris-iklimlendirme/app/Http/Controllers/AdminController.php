@@ -11,6 +11,7 @@ use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 
 
+
 class AdminController extends Controller
 {
 
@@ -214,4 +215,8 @@ class HeroController extends Controller
 
         return back()->with('success', 'Hero alanı güncellendi!');
     }
+
+    
+
+
 }
