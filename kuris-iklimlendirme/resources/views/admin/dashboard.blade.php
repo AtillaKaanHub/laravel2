@@ -56,7 +56,10 @@ body{
         class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white">
    Hizmetler
 </button>
-    <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">Kurumsal</a>
+    <button onclick="showSection('kurumsal-panel', this)" 
+        class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white">
+   Kurumsal
+</button>
     <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">İletişim</a>
 
     <!-- Menü Yönetimi -->
@@ -693,6 +696,172 @@ class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 te
         </button>
     </div>
     </form>
+</div>
+
+
+
+<div id="kurumsal-panel" class="section hidden">
+
+<h1 class="text-2xl font-bold mb-6">Kurumsal Sayfa Yönetimi</h1>
+
+<form action="{{ url('/admin/corporate-update') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-2xl shadow space-y-8">
+@csrf
+
+
+<!-- SAYFA ÜST ALANI -->
+
+<div>
+<h3 class="text-lg font-bold text-gray-700 mb-1">Sayfa Üst Alanı</h3>
+<p class="text-sm text-gray-500 mb-4">Kurumsal sayfasının en üstünde görünen başlık ve açıklama.</p>
+
+<label class="block mb-2 font-semibold">Ana Başlık</label>
+<input type="text"
+name="hero_title"
+value="{{ $corporate->hero_title ?? 'Kurumsal Kimliğimiz' }}"
+class="w-full border p-3 rounded-lg mb-3 outline-none focus:border-blue-500">
+
+<label class="block mb-2 font-semibold">Açıklama</label>
+<textarea
+name="hero_description"
+class="w-full border p-3 rounded-lg h-20 outline-none focus:border-blue-500">{{ $corporate->hero_description ?? "Kuriş İklimlendirme'nin hikayesini, değerlerini ve geleceğe yönelik vizyonunu keşfedin." }}</textarea>
+
+</div>
+
+<hr>
+
+
+<!-- HİKAYEMİZ -->
+
+<div>
+
+<h3 class="text-lg font-bold text-gray-700 mb-1">Hikayemiz Bölümü</h3>
+<p class="text-sm text-gray-500 mb-4">Hikayemiz başlığı altında görünen metin ve görsel.</p>
+
+<label class="block mb-2 font-semibold">Metin 1</label>
+<textarea name="story_text1"
+class="w-full border p-3 rounded-lg h-24 outline-none focus:border-blue-500">{{ $corporate->story_text1 ?? '' }}</textarea>
+
+<label class="block mb-2 font-semibold mt-4">Metin 2</label>
+<textarea name="story_text2"
+class="w-full border p-3 rounded-lg h-24 outline-none focus:border-blue-500">{{ $corporate->story_text2 ?? '' }}</textarea>
+
+<label class="block mb-2 font-semibold mt-4">Görsel</label>
+<input type="file" name="story_image" class="w-full border p-2 rounded-lg bg-white">
+
+</div>
+
+<hr>
+
+
+<!-- ZAMAN ÇİZELGESİ -->
+
+<div>
+
+<h3 class="text-lg font-bold text-gray-700 mb-1">Zaman Çizelgesi</h3>
+<p class="text-sm text-gray-500 mb-4">Şirket gelişim yılları.</p>
+
+@for($i=0;$i<5;$i++)
+
+<div class="mb-6 p-4 border border-gray-200 bg-gray-50 rounded-lg">
+
+<input type="hidden" name="timeline[{{$i}}][id]" value="{{ $timelines[$i]->id ?? '' }}">
+
+<label class="block mb-2 font-semibold">Yıl</label>
+<input type="text"
+name="timeline[{{$i}}][year]"
+value="{{ $timelines[$i]->year ?? '' }}"
+class="w-full border p-3 rounded-lg mb-2 outline-none focus:border-blue-500">
+
+<label class="block mb-2 font-semibold">Başlık</label>
+<input type="text"
+name="timeline[{{$i}}][title]"
+value="{{ $timelines[$i]->title ?? '' }}"
+class="w-full border p-3 rounded-lg mb-2 outline-none focus:border-blue-500">
+
+<label class="block mb-2 font-semibold">Açıklama</label>
+<textarea
+name="timeline[{{$i}}][description]"
+class="w-full border p-3 rounded-lg h-20 outline-none focus:border-blue-500">{{ $timelines[$i]->description ?? '' }}</textarea>
+
+</div>
+
+@endfor
+
+</div>
+
+<hr>
+
+
+<!-- MİSYON VİZYON -->
+
+<div>
+
+<h3 class="text-lg font-bold text-gray-700 mb-1">Misyon & Vizyon</h3>
+<p class="text-sm text-gray-500 mb-4">Şirket misyonu ve vizyonu.</p>
+
+<label class="block mb-2 font-semibold">Misyon</label>
+<textarea name="mission"
+class="w-full border p-3 rounded-lg h-24 outline-none focus:border-blue-500">{{ $corporate->mission ?? '' }}</textarea>
+
+<label class="block mb-2 font-semibold mt-4">Vizyon</label>
+<textarea name="vision"
+class="w-full border p-3 rounded-lg h-24 outline-none focus:border-blue-500">{{ $corporate->vision ?? '' }}</textarea>
+
+</div>
+
+<hr>
+
+
+<!-- DEĞERLER -->
+
+<div>
+
+<h3 class="text-lg font-bold text-gray-700 mb-1">Değerlerimiz</h3>
+<p class="text-sm text-gray-500 mb-4">Kurumsal değer kartları.</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+@for($i=0;$i<6;$i++)
+
+<div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
+
+<input type="hidden" name="values[{{$i}}][id]" value="{{ $values[$i]->id ?? '' }}">
+
+<label class="block text-sm font-semibold mb-1">İkon</label>
+<input type="text"
+name="values[{{$i}}][icon]"
+value="{{ $values[$i]->icon ?? '' }}"
+class="w-full border p-2 rounded mb-2 text-sm">
+
+<label class="block text-sm font-semibold mb-1">Başlık</label>
+<input type="text"
+name="values[{{$i}}][title]"
+value="{{ $values[$i]->title ?? '' }}"
+class="w-full border p-2 rounded mb-2 text-sm">
+
+<label class="block text-sm font-semibold mb-1">Açıklama</label>
+<textarea
+name="values[{{$i}}][description]"
+class="w-full border p-2 rounded h-16 text-sm">{{ $values[$i]->description ?? '' }}</textarea>
+
+</div>
+
+@endfor
+
+</div>
+
+</div>
+
+
+<div class="pt-6 border-t mt-6">
+<button type="submit"
+class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-lg shadow-lg">
+Tüm Değişiklikleri Kaydet
+</button>
+</div>
+
+</form>
+
 </div>
 </main>
 

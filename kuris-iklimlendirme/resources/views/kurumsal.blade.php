@@ -138,8 +138,12 @@
             <i class="fa-solid fa-handshake absolute bottom-10 right-10 text-9xl"></i>
         </div>
         <div class="custom-container relative z-10">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Kurumsal Kimliğimiz</h1>
-            <p class="text-lg text-blue-100 max-w-2xl mx-auto">Kuriş İklimlendirme'nin hikayesini, değerlerini ve geleceğe yönelik vizyonunu keşfedin.</p>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+    {{ $corporate->hero_title ?? 'Kurumsal Kimliğimiz' }}
+</h1>
+           <p class="text-lg text-blue-100 max-w-2xl mx-auto">
+    {{ $corporate->hero_description ?? "Kuriş İklimlendirme'nin hikayesini, değerlerini ve geleceğe yönelik vizyonunu keşfedin." }}
+</p>
         </div>
     </div>
 
@@ -149,21 +153,44 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <img src="mekan.jpg" alt="Ofis Ortamı" class="rounded-2xl shadow-xl border-4 border-white">
+                    @if($corporate && $corporate->story_image)
+    <img src="{{ asset('storage/' . $corporate->story_image) }}" 
+         alt="Kurumsal Görsel" 
+         class="rounded-2xl shadow-xl border-4 border-white">
+@else
+    <img src="mekan.jpg" 
+         alt="Ofis Ortamı" 
+         class="rounded-2xl shadow-xl border-4 border-white">
+@endif
                 </div>
                 <div>
                     <p class="text-gray-700 leading-relaxed text-lg mb-6">
-                        Kuriş İklimlendirme, sektördeki 7 yılı aşkın tecrübesiyle, müşteri memnuniyetini ve sürdürülebilir kaliteyi ilke edinmiş bir kuruluştur. Kurulduğumuz günden bu yana, modern iklimlendirme çözümleri sunarak konforlu ve sağlıklı yaşam alanları yaratmayı hedefledik.
-                    </p>
-                    <p class="text-gray-600 leading-relaxed">
-                        Başlangıçta küçük bir atölyede başlayan yolculuğumuz, zamanla genişleyen ürün gamımız, uzman ekibimiz ve ülke geneline yayılan hizmet ağımızla büyük bir başarı hikayesine dönüştü. Bugün, hem bireysel hem de kurumsal müşterilerimize en yeni teknolojilerle donatılmış iklimlendirme sistemleri sunmaktan gurur duyuyoruz.
-                    </p>
+    {{ $corporate->story_text1 ?? "Kuriş İklimlendirme, sektördeki 7 yılı aşkın tecrübesiyle, müşteri memnuniyetini ve sürdürülebilir kaliteyi ilke edinmiş bir kuruluştur. Kurulduğumuz günden bu yana, modern iklimlendirme çözümleri sunarak konforlu ve sağlıklı yaşam alanları yaratmayı hedefledik." }}
+</p>
+
+                   <p class="text-gray-600 leading-relaxed">
+    {{ $corporate->story_text2 ?? "Başlangıçta küçük bir atölyede başlayan yolculuğumuz, zamanla genişleyen ürün gamımız, uzman ekibimiz ve ülke geneline yayılan hizmet ağımızla büyük bir başarı hikayesine dönüştü. Bugün, hem bireysel hem de kurumsal müşterilerimize en yeni teknolojilerle donatılmış iklimlendirme sistemleri sunmaktan gurur duyuyoruz." }}
+</p>
                 </div>
             </div>
 
             <div class="mt-20">
                 <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Zaman Çizelgesi</h3>
                 <div class="max-w-3xl mx-auto">
+    @foreach($timelines as $timeline)
+        <div class="timeline-item">
+            <div class="text-blue-700 font-semibold mb-2 text-lg">
+                {{ $timeline->year }}
+            </div>
+            <h4 class="text-xl font-semibold text-gray-800 mb-2">
+                {{ $timeline->title }}
+            </h4>
+            <p class="text-gray-600">
+                {{ $timeline->description }}
+            </p>
+        </div>
+    @endforeach
+</div>
                     <div class="timeline-item">
                         <div class="text-blue-700 font-semibold mb-2 text-lg">2019</div>
                         <h4 class="text-xl font-semibold text-gray-800 mb-2">Şirket Kurulumu</h4>
@@ -203,17 +230,17 @@
                         <h3 class="text-3xl font-bold">Misyonumuz</h3>
                     </div>
                     <p class="text-blue-100 leading-relaxed text-lg">
-                        Müşterilerimizin yaşam ve çalışma alanlarında ideal iklimlendirme koşullarını sağlamak, enerji verimliliği yüksek, çevre dostu ve yenilikçi çözümler sunarak konfor ve sağlık standartlarını en üst seviyeye taşımaktır.
-                    </p>
+    {{ $corporate?->mission ?? "Müşterilerimizin yaşam ve çalışma alanlarında ideal iklimlendirme koşullarını sağlamak, enerji verimliliği yüksek, çevre dostu ve yenilikçi çözümler sunarak konfor ve sağlık standartlarını en üst seviyeye taşımaktır." }}
+</p>
                 </div>
                 <div class="bg-gradient-to-br from-cyan-700 to-cyan-500 p-8 rounded-2xl shadow-lg text-white">
                     <div class="flex items-center mb-4">
                         <i class="fa-solid fa-eye text-4xl mr-4 opacity-75"></i>
                         <h3 class="text-3xl font-bold">Vizyonumuz</h3>
                     </div>
-                    <p class="text-cyan-100 leading-relaxed text-lg">
-                        İklimlendirme sektöründe lider, teknolojik gelişmeleri yakından takip eden, müşteri odaklı hizmet anlayışıyla sektör standartlarını belirleyen ve global pazarda tanınan bir marka olmaktır.
-                    </p>
+                   <p class="text-cyan-100 leading-relaxed text-lg">
+    {{ $corporate?->vision ?? "İklimlendirme sektöründe lider, teknolojik gelişmeleri yakından takip eden, müşteri odaklı hizmet anlayışıyla sektör standartlarını belirleyen ve global pazarda tanınan bir marka olmaktır." }}
+</p>
                 </div>
             </div>
         </div>
@@ -221,9 +248,22 @@
 
     <section id="our-values" class="py-20 bg-gray-50">
         <div class="custom-container">
-            <h2 class="text-3xl font-bold text-gray-800 text-center mb-12">Değerlerimiz</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <h2 class="text-3xl font-bold text-gray-800 text-center mb-12">Değerlerimiz</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach($values as $value)
+            <div class="bg-white p-6 rounded-xl shadow-md text-center value-card">
+                <i class="fa-solid {{ $value->icon }}"></i>
+                <h4 class="text-xl font-semibold text-gray-800 mb-2">
+                    {{ $value->title }}
+                </h4>
+                <p class="text-gray-600">
+                    {{ $value->description }}
+                </p>
+            </div>
+        @endforeach
+    </div>
+</div>
                 <div class="bg-white p-6 rounded-xl shadow-md text-center value-card">
                     <i class="fa-solid fa-medal text-5xl text-blue-600 mb-4"></i>
                     <h4 class="text-xl font-semibold text-gray-800 mb-2">Kalite Odaklılık</h4>

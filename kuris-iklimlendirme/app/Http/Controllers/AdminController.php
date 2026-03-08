@@ -9,6 +9,9 @@ use App\Models\Yorum;
 use App\Models\Message;
 use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
+use App\Models\Corporate;
+use App\Models\Timeline;
+use App\Models\Value;
 
 
 
@@ -192,6 +195,61 @@ public function footerUpdate(Request $request)
     return back()->with('success', 'Footer güncellendi.');
 }
 
+ public function corporateUpdate(Request $request)
+{
+    // 1) Corporate tek tablo
+    $corporate = Corporate::first() ?? new Corporate();
+
+    $corporate->fill($request->only([
+        'hero_title',
+        'hero_description',
+        'story_text1',
+        'story_text2',
+        'mission',
+        'vision'
+    ]));
+
+    if ($request->hasFile('story_image')) {
+        $corporate->story_image = $request->file('story_image')->store('corporate', 'public');
+    }
+
+    $corporate->save();
+
+    // 2) Timeline
+    if ($request->has('timeline')) {
+        foreach ($request->timeline as $item) {
+            if (empty($item['title'])) continue;
+
+            Timeline::updateOrCreate(
+                ['id' => $item['id'] ?? null],
+                [
+                    'year' => $item['year'],
+                    'title' => $item['title'],
+                    'description' => $item['description']
+                ]
+            );
+        }
+    }
+
+    // 3) Values
+    if ($request->has('values')) {
+        foreach ($request->values as $item) {
+            if (empty($item['title'])) continue;
+
+            Value::updateOrCreate(
+                ['id' => $item['id'] ?? null],
+                [
+                    'icon' => $item['icon'],
+                    'title' => $item['title'],
+                    'description' => $item['description']
+                ]
+            );
+        }
+    }
+
+    return back()->with('success','Kurumsal sayfa güncellendi.');
+}
+
 }
 
 
@@ -216,6 +274,8 @@ class HeroController extends Controller
         return back()->with('success', 'Hero alanı güncellendi!');
     }
 
+
+   
     
 
 

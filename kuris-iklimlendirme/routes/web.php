@@ -51,6 +51,7 @@ Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
     Route::post('/about-update', [AdminController::class, 'aboutUpdate'])->name('admin.about.update');
     Route::post('/footer-update', [AdminController::class, 'footerUpdate']);
     Route::post('/services-update', [ServiceController::class, 'update']);
+    Route::post('/corporate-update', [AdminController::class, 'corporateUpdate']);
     });
 
 
@@ -73,7 +74,13 @@ Route::get('/hizmetler', function () {
 
     return view('hizmetler', compact('services', 'process', 'settings'));
 });
-Route::view('/kurumsal', 'kurumsal');
+Route::get('/kurumsal', function () {
+    $corporate = \App\Models\Corporate::first();
+    $timelines = \App\Models\Timeline::all();
+    $values = \App\Models\Value::all();
+
+    return view('kurumsal', compact('corporate','timelines','values'));
+});
 Route::view('/iletisim', 'iletisim');
 Route::post('/yorum-ekle', [YorumController::class, 'store'])->name('yorum.ekle');
 Route::post('/mesaj-gonder', [MessageController::class, 'store'])->name('mesaj.store');
