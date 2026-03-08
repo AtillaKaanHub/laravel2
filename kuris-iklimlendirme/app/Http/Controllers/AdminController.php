@@ -250,6 +250,31 @@ public function footerUpdate(Request $request)
     return back()->with('success','Kurumsal sayfa güncellendi.');
 }
 
+
+public function contactUpdate(Request $request)
+{
+    $contact = \App\Models\Contact::first() ?? new \App\Models\Contact();
+
+    $contact->hero_title = $request->hero_title;
+    $contact->hero_desc = $request->hero_desc;
+
+    $contact->address = $request->address;
+    $contact->phone = $request->phone;
+    $contact->email = $request->email;
+
+    $contact->facebook = $request->facebook;
+    $contact->instagram = $request->instagram;
+
+    $contact->map_embed = $request->map_embed;
+
+    if ($request->hasFile('video')) {
+        $contact->video = $request->file('video')->store('contact','public');
+    }
+
+    $contact->save();
+
+    return back()->with('success','İletişim sayfası güncellendi');
+}
 }
 
 

@@ -91,6 +91,9 @@
     </style>
 @endsection
 
+@php
+$contact = \App\Models\Contact::first();
+@endphp
    @section('content')
 
     <div class="pt-32 pb-16 bg-gradient-to-r from-blue-900 to-blue-600 text-white text-center relative overflow-hidden">
@@ -98,8 +101,8 @@
             <i class="fa-solid fa-headset absolute top-10 left-10 text-9xl"></i>
         </div>
         <div class="custom-container relative z-10">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Bize Ulaşın</h1>
-            <p class="text-lg text-blue-100 max-w-2xl mx-auto">Sorularınız, teklif istekleriniz veya teknik destek için her zaman yanınızdayız.</p>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ $contact->hero_title ?? 'Bize Ulaşın' }}</h1>
+<p class="text-lg text-blue-100 max-w-2xl mx-auto">{{ $contact->hero_desc ?? 'Sorularınız, teklif istekleriniz veya teknik destek için her zaman yanınızdayız.' }}</p>
         </div>
     </div>
 
@@ -118,7 +121,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-gray-800">Merkez Ofis</h4>
-                                <p class="text-gray-600">Hürriyet, İsmet İnönü Blv. no:111/A,<br>Yenişehir/Mersin</p>
+                              <p class="text-gray-600">{{ $contact->address ?? 'Hürriyet, İsmet İnönü Blv. no:111/A,Yenişehir/Mersin' }}</p>
                             </div>
                         </div>
 
@@ -128,7 +131,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-gray-800">Telefon & Whatsapp</h4>
-                                <p class="text-gray-600">+90 501 030 3361</p>
+                               <p class="text-gray-600">{{ $contact->phone ?? '+90 501 030 3361' }}</p>
                             </div>
                         </div>
 
@@ -138,7 +141,7 @@
                             </div>
                             <div>
                                 <h4 class="font-bold text-gray-800">E-Posta</h4>
-                                <p class="text-gray-600">info@kurisiklim.com</p>
+                                <p class="text-gray-600">{{ $contact->email ?? 'info@kurisiklim.com' }}</p>
                             </div>
                         </div>
                     </div>
@@ -146,8 +149,14 @@
                     <div class="mt-10">
                         <h4 class="font-bold text-gray-800 mb-4">Bizi Takip Edin</h4>
                         <div class="flex gap-4">
-                            <a href="#" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="#" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-pink-600 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                           <a href="https://www.facebook.com/kurisiklim" target="_blank" 
+   class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition">
+   <i class="fa-brands fa-facebook-f"></i>
+</a>
+                           <a href="https://www.instagram.com/kurisiklim/" target="_blank" 
+   class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-pink-600 hover:text-white transition">
+   <i class="fa-brands fa-instagram"></i>
+</a>
                         </div>
                     </div>
                 </div>
@@ -204,10 +213,12 @@
     
     <div class="bg-black rounded-2xl overflow-hidden shadow-2xl h-[400px] w-full relative group">
         
-        <video class="w-full h-full object-cover" controls>
-            <source src="tanitim.mp4" type="video/mp4">
-            Tarayıcınız bu video formatını desteklemiyor.
-        </video>
+      @if($contact && $contact->video)
+<video class="w-full h-full object-cover" controls>
+    <source src="{{ asset('storage/'.$contact->video) }}" type="video/mp4">
+    Tarayıcınız bu video formatını desteklemiyor.
+</video>
+@endif
         
     </div>
    
@@ -226,12 +237,9 @@
                         <h2 class="text-2xl font-bold text-gray-800">Konumumuz</h2>
                     </div>
                     <div class="bg-gray-200 rounded-2xl overflow-hidden shadow-2xl h-[400px] w-full">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.669894676527!2d34.6234958!3d36.7807206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1527f4a47d7c6d17%3A0x8e8e8e8e8e8e8e8e!2sH%C3%BCrriyet%2C%20%C4%B0smet%20%C4%B0n%C3%B6n%C3%BC%20Blv.%20No%3A111%2C%2033110%20Yeni%C5%9Fehir%2FMersin!5e0!3m2!1str!2str!4v1680000000000!5m2!1str!2str" 
-                                class="w-full h-full border-0" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                        @if($contact && $contact->map_embed)
+<iframe src="{{ $contact->map_embed }}" class="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+@endif
                     </div>
                     <p class="mt-4 text-gray-600 text-sm">
                         * Hürriyet, İsmet İnönü Blv. no:111/A, Yenişehir/Mersin adresindeki ofisimize bekleriz.

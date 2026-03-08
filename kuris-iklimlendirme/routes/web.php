@@ -8,6 +8,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Models\Contact;
 
 
 
@@ -52,6 +53,7 @@ Route::delete('/yorum/{id}', [AdminController::class, 'yorumSil'])
     Route::post('/footer-update', [AdminController::class, 'footerUpdate']);
     Route::post('/services-update', [ServiceController::class, 'update']);
     Route::post('/corporate-update', [AdminController::class, 'corporateUpdate']);
+    Route::post('/contact-update', [AdminController::class, 'contactUpdate']);
     });
 
 
@@ -81,7 +83,10 @@ Route::get('/kurumsal', function () {
 
     return view('kurumsal', compact('corporate','timelines','values'));
 });
-Route::view('/iletisim', 'iletisim');
+Route::get('/iletisim', function() {
+    $contact = Contact::first(); // Veya uygun ID
+    return view('iletisim', compact('contact'));
+});
 Route::post('/yorum-ekle', [YorumController::class, 'store'])->name('yorum.ekle');
 Route::post('/mesaj-gonder', [MessageController::class, 'store'])->name('mesaj.store');
 Route::post('/yorum-gonder', [YorumController::class, 'store'])->name('yorum.store');

@@ -60,7 +60,10 @@ body{
         class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white">
    Kurumsal
 </button>
-    <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">İletişim</a>
+    <button onclick="showSection('iletisim-panel', this)" 
+        class="block w-full text-left px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white">
+   İletişim
+</button>
 
     <!-- Menü Yönetimi -->
    <button onclick="showSection('menu', this)" 
@@ -863,6 +866,111 @@ Tüm Değişiklikleri Kaydet
 </form>
 
 </div>
+
+
+<div id="iletisim-panel" class="section hidden">
+    <h1 class="text-2xl font-bold mb-6">İletişim Sayfası Yönetimi</h1>
+
+    <form action="{{ url('/admin/contact-update') }}" method="POST" enctype="multipart/form-data"
+          class="bg-white p-6 rounded-2xl shadow space-y-6">
+        @csrf
+
+        <!-- HERO BÖLÜMÜ -->
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 text-gray-700">Hero Bölümü</h3>
+
+            <label class="block mb-2 font-semibold">Başlık</label>
+            <input type="text" name="hero_title"
+                   value="{{ $contact->hero_title ?? 'Bize Ulaşın' }}"
+                   class="w-full border p-3 rounded-lg mb-4 outline-none focus:border-blue-500">
+
+            <label class="block mb-2 font-semibold">Açıklama</label>
+            <textarea name="hero_desc"
+                      class="w-full border p-3 rounded-lg h-20 outline-none focus:border-blue-500">{{ $contact->hero_desc ?? 'Sorularınız, teklif istekleriniz veya teknik destek için her zaman yanınızdayız.' }}</textarea>
+
+            
+
+        <hr class="my-4 border-gray-200">
+
+        <!-- İLETİŞİM BİLGİLERİ -->
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 text-gray-700">İletişim Bilgileri</h3>
+
+            <label class="block mb-2 font-semibold">Adres</label>
+            <textarea name="address"
+                      class="w-full border p-3 rounded-lg h-20 outline-none focus:border-blue-500">{{ $contact->address ?? '' }}</textarea>
+
+            <label class="block mb-2 font-semibold mt-4">Telefon</label>
+            <input type="text" name="phone"
+                   value="{{ $contact->phone ?? '' }}"
+                   class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+
+            <label class="block mb-2 font-semibold mt-4">E-Posta</label>
+            <input type="email" name="email"
+                   value="{{ $contact->email ?? '' }}"
+                   class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+        </div>
+
+        <hr class="my-4 border-gray-200">
+
+        <!-- SOSYAL MEDYA -->
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 text-gray-700">Sosyal Medya</h3>
+
+            <label class="block mb-2 font-semibold">Facebook Link</label>
+            <input type="text" name="facebook"
+                   value="{{ $contact->facebook ?? '' }}"
+                   class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+
+            <label class="block mb-2 font-semibold mt-4">Instagram Link</label>
+            <input type="text" name="instagram"
+                   value="{{ $contact->instagram ?? '' }}"
+                   class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+        </div>
+
+        <hr class="my-4 border-gray-200">
+
+        <!-- VİDEO -->
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 text-gray-700">Tanıtım Videosu</h3>
+
+            <label class="block mb-2 font-semibold">Video Yükle (mp4)</label>
+            <input type="file" name="video"
+                   class="w-full border p-2 rounded-lg bg-white outline-none focus:border-blue-500">
+
+            @if(!empty($contact->video))
+                <video width="200" controls class="mt-3 rounded-lg">
+                    <source src="{{ asset('storage/'.$contact->video) }}" type="video/mp4">
+                </video>
+            @endif
+        </div>
+
+        <hr class="my-4 border-gray-200">
+
+        <!-- GOOGLE MAP -->
+        <div>
+            <h3 class="text-lg font-bold border-b pb-2 mb-4 text-gray-700">Google Maps</h3>
+
+            <label class="block mb-2 font-semibold">Iframe src (embed link)</label>
+            <input type="text" name="map_embed"
+                   value="{{ $contact->map_embed ?? '' }}"
+                   class="w-full border p-3 rounded-lg outline-none focus:border-blue-500">
+
+            <p class="text-sm text-gray-500 mt-2">
+                Google Maps'ten paylaş → haritayı yerleştir → iframe src kısmını buraya yapıştır.
+            </p>
+        </div>
+
+        <div class="pt-6">
+            <button type="submit"
+                    class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition">
+                Kaydet
+            </button>
+        </div>
+
+    </form>
+</div>
+
 </main>
 
     </main>
