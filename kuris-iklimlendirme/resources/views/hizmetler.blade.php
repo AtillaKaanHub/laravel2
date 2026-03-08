@@ -100,7 +100,7 @@
             .nav-links { display: none; }
         }
     </style>
-@extends('layouts.app') @section('content')
+ @section('content')
     <div class="pt-32 pb-16 bg-gradient-to-r from-blue-900 to-blue-600 text-white text-center relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full opacity-10">
             <i class="fa-solid fa-snowflake absolute top-10 left-10 text-9xl"></i>
